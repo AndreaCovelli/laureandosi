@@ -20,6 +20,9 @@
 # Allow composer configuration
 !/composer.json
 
+# Allow the presentation image
+!image.png
+
 # Not allow vendor directory
 /app/public/src/vendor/**
 **/*/readme.md

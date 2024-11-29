@@ -2,6 +2,8 @@
 
 ## Descrizione
 Progetto realizzato per l'esame di Ingegneria del Software.<br>
+<!-- Aggiungi immagine-->
+![Laureandosi](image.png)
 Il progetto consiste nel realizzare il portale **Laureandosi** per la gestione dei prospetti di laurea.
 Il linguaggio di programmazione utilizzato è **PHP** e il framework **WordPress**.
 Per realizzare il progetto è stato utilizzato il software **LocalWP** per la creazione di un ambiente di sviluppo locale. È stato inoltre fondamentale l'uso di PHPunit per la realizzazione dei test.
