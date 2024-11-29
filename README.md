@@ -9,8 +9,8 @@ Il linguaggio di programmazione utilizzato è **PHP** e il framework **WordPress
 Per realizzare il progetto è stato utilizzato il software **LocalWP** per la creazione di un ambiente di sviluppo locale. È stato inoltre fondamentale l'uso di PHPunit per la realizzazione dei test.
 
 ## Per Iniziare
-1. Questo progetto è configurato utilizzando Local Sites per lo sviluppo WordPress
-2. Segui le istruzioni di installazione per Local Sites
+1. Questo progetto è configurato utilizzando LocalWP per lo sviluppo WordPress
+2. Segui le istruzioni di installazione per LocalWP
 3. Configura il tuo ambiente locale
 
 ## Requisiti
@@ -21,6 +21,7 @@ Per realizzare il progetto è stato utilizzato il software **LocalWP** per la cr
 ## Installazione
 1. Clona questo repository
 2. Apri con LocalWP il progetto
+3. Aggiungi la cartella lib contenente le librerie FPDF e PHPMailer all'interno di app/public
 3. Avvia il server locale
 
 ## Installazione PHPunit
