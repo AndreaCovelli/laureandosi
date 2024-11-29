@@ -20,7 +20,11 @@ class ProspettoPDFLaureando extends Prospetto{
         }
     }
 
-    public function generaProspetto(): void{
+    /**
+     * Genera il prospetto
+     * @return void
+     */
+    public function generaProspetto() {
         $this->pdf->SetFont('Arial', '', 12);
         $this->pdf->AddPage();
 
@@ -68,7 +72,7 @@ class ProspettoPDFLaureando extends Prospetto{
      * Aggiunge la lista di esami della carriera del laureando
      * @return void
      */
-    private function lista_esami(): void{
+    private function lista_esami(): void {
         $is_informatico = is_a($this->carriera_laureando, CarrieraLaureandoInformatica::class);
 
         $this->pdf->SetFontSize(10);
@@ -104,7 +108,7 @@ class ProspettoPDFLaureando extends Prospetto{
      * Aggiunge le statistiche relative alla carriera del laureando
      * @return void
      */
-    private function statistiche(): void{
+    private function statistiche(): void {
         //$string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/degree_formulas.json");
         //$parametri = json_decode($string, true);
 

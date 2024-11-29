@@ -21,6 +21,10 @@ class ProspettoPDFCommissione extends Prospetto{
         }
     }
 
+    /**
+     * Restituisce la directory di output per i prospetti
+     * @return string
+     */
     public function getOutputDir(): string {
         $base_dir = dirname(dirname(__DIR__)) . '/output';
         $safe_cdl = str_replace(' ', '_', $this->cdl);
@@ -28,7 +32,11 @@ class ProspettoPDFCommissione extends Prospetto{
         return $base_dir . '/' . $safe_cdl . '/' . $safe_date;
     }
 
-    public function generaProspetto(): void{
+    /**
+     * Genera prospetti per la commissione e per i singoli laureandi
+     * @return void
+     */
+    public function generaProspetto(): void {
         // Crea directory se non esiste
         $output_dir = $this->getOutputDir();
         if (!file_exists($output_dir)) {
@@ -53,13 +61,21 @@ class ProspettoPDFCommissione extends Prospetto{
             $prospetto_laureando->salvaProspetto($output_dir . '/prospetto_laureando_' . $laureando);
         }
     }
-    
+
+    /**
+     * Invia prospetti ai laureandi
+     * @return bool
+     */
     public function inviaProspettiLaureandi(): bool {
         $email_manager = GestioneInvioEmail::getInstance();
         return $email_manager->inviaEmailConProspetti($this->lista_laureandi, $this->getOutputDir());
     }
 
-    private function add_lista_laureandi() : void{
+    /**
+     * Aggiunge la lista dei laureandi al prospetto
+     * @return void
+     */
+    private function add_lista_laureandi() : void {
         $this->pdf->SetFont('Arial', '', 10);
         $this->pdf->AddPage();
         $this->pdf->Cell(0, 5, $this->lista_laureandi[0]->getCdl(), 0, 1, 'C');

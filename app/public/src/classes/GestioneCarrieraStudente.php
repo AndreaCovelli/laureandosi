@@ -14,15 +14,24 @@ class GestioneCarrieraStudente{
         }
         return self::$instance;
     }
-
-    public function RestituisciAnagraficaStudente($matricola){
+    /**
+     * Restituisce l'anagrafica di uno studente
+     * @param string $matricola
+     * @return array
+     */
+    public function RestituisciAnagraficaStudente($matricola): array {
         //$string = file_get_contents(realpath(dirname(__FILE__))."/../data/".$matricola."_anagrafica.json");
         $string = file_get_contents(self::$data_path . "/" . $matricola."_anagrafica.json");
         $anagrafica_matricola = json_decode($string, true);
         return $anagrafica_matricola;
     }
 
-    public function RestituisciEsamiStudente($matricola){
+    /**
+     * Restituisce la carriera di uno studente
+     * @param string $matricola
+     * @return array
+     */
+    public function RestituisciEsamiStudente($matricola): array {
         //$string = file_get_contents(realpath(dirname(__FILE__))."/../data/".$matricola."_esami.json");
         $string = file_get_contents(self::$data_path . "/" . $matricola."_esami.json");
         $carriera_matricola = json_decode($string, true);

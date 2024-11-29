@@ -1,13 +1,13 @@
 <?php
-session_start();
-session_unset();  // Clear all session variables on page load
+session_start(); // Inizializza la sessione
+session_unset();  // Cancella tutte le variabili di sessione
 const WP_USE_THEMES = true;
 require_once('src/Classes/ProspettoPDFCommissione.php');
 require_once('src/Classes/GestioneInvioEmail.php');
 
 $output_dir = __DIR__ . '/output';
 if (!file_exists($output_dir)) {
-    mkdir($output_dir, 0777, true); // mode is ignored on Windows
+    mkdir($output_dir, 0777, true); // mode 0777 viene ignorata su Windows
 }
 
 $form_values = [
@@ -15,7 +15,7 @@ $form_values = [
     'cdl' => '',
     'date' => ''
 ];
-
+// Controlla se il form è stato inviato
 if (isset($_GET['create']) || isset($_GET['send'])) {
     $form_values = [
         'matricole' => $_GET['matricole'],
@@ -27,7 +27,7 @@ if (isset($_GET['create']) || isset($_GET['send'])) {
     $matricole_array = array_map('trim', explode(',', $matricole_string));
     $cdl = $_GET['cdl'];
     $data_laurea = $_GET['date'];
-
+    // Check if the form is valid
     if (!empty($matricole_array) && $cdl != "Seleziona un CdL" && !empty($data_laurea)) {
         $pdf = new FPDF();
         $prospetto = new ProspettoPDFCommissione($pdf, $matricole_array, $cdl, $data_laurea);
@@ -38,7 +38,7 @@ if (isset($_GET['create']) || isset($_GET['send'])) {
             $safe_date = str_replace('-', '_', $data_laurea);
             $_SESSION['prospetti_generati'] = true;
             $_SESSION['output_path'] = '/output/' . $safe_cdl . '/' . $safe_date;
-            $_SESSION['create_success'] = true; // Aggiungi questa linea
+            $_SESSION['create_success'] = true;
         } elseif (isset($_GET['send'])) {
             $success = $prospetto->inviaProspettiLaureandi();
             $_SESSION['email_sent'] = $success;
@@ -103,24 +103,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const outputPath = '<?php echo $_SESSION['output_path']; ?>';
     openBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        // Apri il file PDF nel browser
+        // Apri il prospetto della commissione in una nuova scheda
         window.open(outputPath + '/prospetto_commissione.pdf', '_blank');
-        // Apri la cartella output nel browser
+        // Apri la cartella con i tutti i prospetti generati
         window.open(outputPath, '_blank');
     });
     <?php endif; ?>
 
-    // Add event listeners to clear message when selection changes
+    // Aggiungi event listener to clear message when CdL changes
     document.getElementById('cdl').addEventListener('change', function() {
         const alertDiv = document.querySelector('.alert');
         if (alertDiv) alertDiv.style.display = 'none';
     });
-
+    // Aggiungi event listeners to clear message when date changes
     document.getElementById('date').addEventListener('change', function() {
         const alertDiv = document.querySelector('.alert');
         if (alertDiv) alertDiv.style.display = 'none';
     });
-
+    // Aggiungi event listeners to clear message when matricole changes
     document.getElementById('matricole').addEventListener('input', function() {
         const alertDiv = document.querySelector('.alert');
         if (alertDiv) alertDiv.style.display = 'none';

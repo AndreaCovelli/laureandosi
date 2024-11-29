@@ -4,7 +4,7 @@ abstract class Prospetto {
     protected \FPDF $pdf;
 
     /**
-     * Constructor
+     * Construttore
      * @param \FPDF $pdf
      */
     public function __construct(\FPDF $pdf) {
@@ -12,7 +12,7 @@ abstract class Prospetto {
     }
 
     /**
-     * Generates the prospetto
+     * Genera il prospetto
      * @return void
      */
     public function salvaProspetto(string $nomefile): void{

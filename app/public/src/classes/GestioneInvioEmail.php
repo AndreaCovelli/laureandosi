@@ -23,7 +23,7 @@ class GestioneInvioEmail{
      * Crea email con prospetto di laurea in allegato
      * @param CarrieraLaureando $carriera
      * @param string $pdf_path
-     * @return bool
+     * @return PHPMailer
      */
     public function creaEmail($carriera, $pdf_path): PHPMailer{
         $mail = new PHPMailer(true);
@@ -80,7 +80,7 @@ class GestioneInvioEmail{
      * @param string $pdf_path
      * @return bool
      */
-    public function inviaEmailConProspetto($carriera, $pdf_path): bool{
+    public function inviaEmailConProspetto($carriera, $pdf_path): bool {
         $mail = $this->creaEmail($carriera, $pdf_path);
         return $this->inviaEmail($mail);
     }
@@ -91,8 +91,7 @@ class GestioneInvioEmail{
      * @param string $pdf_path
      * @return bool
      */
-
-    public function inviaEmailConProspetti($carriere, $pdf_path): bool{
+    public function inviaEmailConProspetti($carriere, $pdf_path): bool {
         $mails = [];
         foreach ($carriere as $carriera){
             $pdf_path_tosend = '';
@@ -101,7 +100,7 @@ class GestioneInvioEmail{
         }
         $success = true;
         foreach ($mails as $mail){
-            $success = $success && $this->inviaEmail($mail);
+            $success = $success && $this->inviaEmail($mail); // Se almeno una mail fallisce, ritorna false
         }
         return $success;
     }

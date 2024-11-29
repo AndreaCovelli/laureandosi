@@ -21,7 +21,11 @@ class EsameLaureando{
         $this->elabora_dati();
     }
 
-    private function elabora_dati(){
+    /**
+     * Elabora i dati del singolo esame
+     * @return void
+     */
+    private function elabora_dati(): void {
         $gestioneParametri = GestioneParametri::getInstance();
         $esamiInformatici = $gestioneParametri->RestituisciParametriEsamiInformatici()['T. Ing. Informatica'];
         
@@ -38,38 +42,75 @@ class EsameLaureando{
         }
     }
 
+    /**
+     * Getter per matricola
+     * @return int
+     */
     public function getMatricola(): int {
         return $this->matricola;
     }
 
+    /**
+     * Getter per nome
+     * @return string
+     */
     public function getNome(): string {
         return $this->nome;
     }
 
+    /**
+     * Getter per voto
+     * @return string
+     */
     public function getVoto(): string {
         return $this->voto;
     }
 
+    /**
+     * Getter per cfu
+     * @return int
+     */
     public function getCfu(): int {
         return $this->cfu;
     }
 
+    /**
+     * Getter per data
+     * @return string
+     */
     public function getData(): string {
         return $this->data;
     }
 
+    /**
+     * Getter per curricolare
+     * @return bool
+     */
     public function isCurricolare(): bool {
         return $this->curricolare;
     }
 
+    /**
+     * Getter per isInAvg
+     * @return bool
+     */
     public function isInAvg(): bool {
         return $this->isInAvg;
     }
 
+    /**
+     * Setter per isInAvg
+     * @param bool $isInAvg
+     * @return void
+     */
     public function setInAvg(bool $isInAvg): void {
         $this->isInAvg = $isInAvg;
     }
 
+    /**
+     * Getter per informatico
+     * @return bool
+     */
     public function isInformatico(): bool {
         return $this->informatico;
     }

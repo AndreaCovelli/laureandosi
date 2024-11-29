@@ -9,20 +9,20 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
     // e lo ridefinisco solo in ProspettoPDFCommissione
 
     /**
-     * Aggiungi simulazione al prospetto
-     * @return fpdf
+     * Genera il prospetto con la simulazione del voto di laurea
+     * @return void
      */
-    public function GeneraProspettoSimulazione(){
-        parent::generaProspetto();
+    public function GeneraProspettoSimulazione(): void {
+        parent::generaProspetto(); // chiamo il metodo della classe padre
         
-        $this->aggiungiSimulazione();
+        $this->aggiungiSimulazione(); // aggiungo la simulazione
     }
 
     /**
-     * Aggiungi simulazione al prospetto
-     * @return fpdf
+     * Aggiungi la sezione della simulazione al prospetto
+     * @return void
      */
-    private function aggiungiSimulazione(){
+    private function aggiungiSimulazione(): void {
         $gestoreParametri = GestioneParametri::getInstance();
 
         // formula di calcolo del voto di laurea
@@ -53,19 +53,19 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
         } else if ($c_min !== 0){
             $this->GestisciVotoSimulazione($formula, $c_min, $c_max, $c_step);
         }
-        
     }
 
     /**
      * Calcola la lista dei possibili voti di laurea
-     * e li aggiunge al prospetto simulazione
+     * e li aggiunge al prospetto simulazione.
+     * La funzione differenzia tra voto di tesi e voto di commissione
      * @param string $formula
      * @param int $min
      * @param int $max
      * @param int $step
+     * @return void
      */
-
-    private function GestisciVotoSimulazione($formula, $min, $max, $step) {
+    private function GestisciVotoSimulazione($formula, $min, $max, $step): void {
         $parametro = '';
         $righe = null;
         $colonne = null;

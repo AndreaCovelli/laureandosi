@@ -20,7 +20,7 @@ class CarrieraLaureando
     protected string $dataLaurea;
 
     /**
-     * Constructor for CarrieraLaureando
+     * Costruttore per CarrieraLaureando
      */
     public function __construct(int $matricola, string $cdL, string $dataLaurea) {
         //$string = file_get_contents("./config_files/degree_formulas.json");
@@ -55,7 +55,7 @@ class CarrieraLaureando
     }
 
     /**
-     * Elaborates exams
+     * Elabora gli esami del laureando
      * @return array
      */
     public function elaboraEsami($carriera): array {
@@ -103,7 +103,7 @@ class CarrieraLaureando
     }
 
     /**
-     * Calculates and returns weighted average
+     * Calcola e restituisce la media ponderata
      * @return float
      */
     public function RestituisciMediaPonderata(): float {
@@ -126,10 +126,13 @@ class CarrieraLaureando
             return 0.0;
         }
 
-        return $sommaVoti / $sommaCFU; // Arrotonda alla seconda cifra decimale
-        //return round($sommaVoti / $sommaCFU, 2); // Arrotonda alla seconda cifra decimale
+        return $sommaVoti / $sommaCFU; // Non arrotondare
     }
 
+    /**
+     * Calcola i CFU totali e i CFU che fanno media
+     * @return void
+     */
     private function calcolaCFU(): void {
         $cfuTotali = 0;
         $cfuMedia = 0;
@@ -147,32 +150,56 @@ class CarrieraLaureando
         $this->cfuMedia = $cfuMedia;
     }
 
+    /**
+     * Getter per la matricola del laureando
+     * @return int
+     */
     public function getMatricola(): int {
         return $this->matricola;
     }
     
+    /**
+     * Getter per il nome del laureando
+     * @return string
+     */
     public function getNome(): string {
         return $this->nome;
     }
-    
+        
+    /**
+     * Getter per il cognome del laureando
+     * @return string
+     */
     public function getCognome(): string {
         return $this->cognome;
     }
     
+    /**
+     * Getter per il corso di laurea del laureando
+     * @return string
+     */
     public function getCdL(): string {
         return $this->cdL;
     }
     
+    /**
+     * Getter per l'email del laureando
+     * @return string
+     */
     public function getEmail(): string {
         return $this->email;
     }
 
+    /**
+     * Ritorna la data di immatricolazione del laureando
+     * @return string
+     */
     public function getDataLaurea(): string {
         return $this->dataLaurea;
     }
     
     /**
-     * Ritorna la data di immatricolazione
+     * Ritorna la formula di calcolo del voto di laurea
      * @return string
      */
     public function getFormulaVotoLaurea(): string {
@@ -180,7 +207,7 @@ class CarrieraLaureando
     }
     
     /**
-     * Ritorna l'array di esami
+     * Ritorna l'array di esami del laureando
      * @return array
      */
     public function getEsami(): array {

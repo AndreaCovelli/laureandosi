@@ -6,6 +6,10 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
 
     /**
      * Constructor for CarrieraLaureandoInformatica
+     * @param int $matricola
+     * @param string $CdL
+     * @param string $dataLaurea
+     * @return void
      */
     public function __construct(int $matricola, string $CdL, string $dataLaurea) {
         parent::__construct($matricola, $CdL, $dataLaurea);
@@ -46,11 +50,10 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     }
 
     /**
-     * Calculates if bonus points apply
+     * Calcola se lo studente ha diritto al bonus
      * @return bool
      */
     public function CalcolaBonus(): bool {
-        // Implementation for calculating bonus eligibility
         $fine_bonus = date('Y-m-d', strtotime("+4 years", strtotime($this->dataImmatricolazione . "-05-31")));
     
         // Confronta la data di laurea con la data di fine bonus
@@ -62,7 +65,8 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     }
 
     /**
-     * Removes the lowest grade exam
+     * Rimuove l'esame con voto più basso.
+     * Se ci sono più esami con lo stesso voto, rimuove quello con più CFU
      * @return void
      */
     public function rimuoviEsamePiuBasso(): void {
@@ -97,7 +101,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     }
     
     /**
-     * Getter for bonus
+     * Getter per bonus
      * @return bool
      */
     public function getBonus(): bool {
@@ -105,7 +109,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     }
 
     /**
-     * Getter for dataLaurea
+     * Getter per dataLaurea
      * @return string
      */
     public function getDataLaurea(): string {
@@ -113,7 +117,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     }
 
     /**
-     * Getter for mediaEsamiInformatica
+     * Getter per mediaEsamiInformatica
      * @return float
      */
     public function getMediaEsamiInformatica(): float {
