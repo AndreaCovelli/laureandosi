@@ -1,0 +1,187 @@
+{
+  "title": "formule per il calcolo del voto di laurea",
+  "legend": {
+    "M": "media pesata per CFU",
+    "T": "punti di tesi",
+    "C": "punti di commissione"
+  },
+  "degree_programs": {
+    "T. Ing. Biomedica": {
+      "formula": "(110/27.17)*(M*CFU+T*3)/(CFU+3)",
+      "required_cfu": 177,
+      "parameters": {
+        "par-T": {
+          "min": 18,
+          "max": 30,
+          "step": 1
+        },
+        "par-C": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        }
+      }
+    },
+    "T. Ing. Elettronica": {
+      "formula": "2+4*(M*CFU +T*3)/(CFU+3)",
+      "required_cfu": 177,
+      "parameters": {
+        "par-T": {
+          "min": 18,
+          "max": 33,
+          "step": 1
+        },
+        "par-C": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        }
+      }
+    },
+    "T. Ing. Informatica": {
+      "formula": "M*3+18+T+C",
+      "required_cfu": 177,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 1,
+          "max": 7,
+          "step": 1
+        }
+      },
+      "notes": "Bonus: si toglie l'esame con voto minore e, a parità di voto minore, quello con più crediti, se ci si laurea entro maggio del terzo anno."
+    },
+    "T. Ing. Telecomunicazioni": {
+      "formula": "M*11/3+C",
+      "required_cfu": 177,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 1,
+          "max": 11,
+          "step": 1
+        }
+      }
+    },
+    "M. Ing. Biomedica": {
+      "formula": "M*3.5+11+C",
+      "required_cfu": 105,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 0.5,
+          "max": 4.0,
+          "step": 0.5
+        }
+      }
+    },
+    "M. Ing. Elettronica": {
+      "formula": "4*(M*CFU+T*18)/(CFU+18)",
+      "required_cfu": 102,
+      "parameters": {
+        "par-T": {
+          "min": 18,
+          "max": 30,
+          "step": 1
+        },
+        "par-C": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        }
+      }
+    },
+    "M. Computer Engineering": {
+      "formula": "M*3+22+T+C",
+      "required_cfu": 96,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      }
+    },
+    "M. AIDE": {
+      "formula": "M*3+22+T+C",
+      "required_cfu": 96,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 1,
+          "max": 3,
+          "step": 1
+        }
+      }
+    },
+    "M. Cybersecurity": {
+      "formula": "M*110/30+C",
+      "required_cfu": 102,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 1,
+          "max": 7,
+          "step": 1
+        }
+      }
+    },
+    "M. Ing. Robotica e dell'Automazione": {
+      "formula": "M*3+18.5+T",
+      "required_cfu": 102,
+      "parameters": {
+        "par-T": {
+          "min": 1,
+          "max": 10,
+          "step": 1
+        },
+        "par-C": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        }
+      }
+    },
+    "M. Ing. Telecomunicazioni": {
+      "formula": "M*11/3+C",
+      "required_cfu": 96,
+      "parameters": {
+        "par-T": {
+          "min": 0,
+          "max": 0,
+          "step": 0
+        },
+        "par-C": {
+          "min": 1,
+          "max": 11,
+          "step": 1
+        }
+      }
+    }
+  }
+}

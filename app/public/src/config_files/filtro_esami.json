@@ -1,0 +1,117 @@
+{
+	"T. Ing. Biomedica": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"T. Ing. Elettronica": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"T. Ing. Informatica": {
+		"_comment": {
+			"*": "indica che vale per tutte le matricole",
+			"xxxxxx": "indica che vale solo per la matricola xxxxxx"
+		},
+		"*": {
+			"esami-non-avg": [
+				"PROVA DI LINGUA INGLESE (B1)",
+				"PROVA DI LINGUA INGLESE",
+				"PROVA DI LINGUA INGLESE B2",
+				"TIROCINIO",
+				"PROVA FINALE",
+				"TEST DI VALUTAZIONE DI INGEGNERIA",
+				"LIBERA SCELTA PER RICONOSCIMENTI"
+			],
+			"esami-non-cdl": [
+				"PROVA FINALE",
+				"LIBERA SCELTA PER RICONOSCIMENTI",
+				"TEST DI VALUTAZIONE DI INGEGNERIA"
+			]
+		},
+		"345678": {
+			"esami-non-avg": [
+				"RICERCA OPERATIVA"
+			],
+			"esami-non-cdl": [
+			]
+		}
+	},
+	"T. Ing. Telecomunicazioni": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. Ing. Biomedica": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. Ing. Elettronica": {
+		"*": {
+			"esami-non-avg": [
+				"PROVA FINALE"
+			],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. Computer Engineering": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. AIDE": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. Cybersecurity": {
+		"*": {
+			"esami-non-avg": [
+				"TESI"
+			],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. Ing. Robotica e dell'Automazione": {
+		"*": {
+			"esami-non-avg": [],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	},
+	"M. Ing. Telecomunicazioni": {
+		"*": {
+			"esami-non-avg": [
+				"PROVA FINALE"
+			],
+			"esami-non-cdl": [
+				"PROVA FINALE"
+			]
+		}
+	}
+}

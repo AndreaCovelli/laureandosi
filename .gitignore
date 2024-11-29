@@ -1,0 +1,23 @@
+# Ignore everything by default
+*
+
+# Allow git files
+!.gitignore
+.idea/.gitignore
+
+# Allow directories
+!*/
+
+# Allow specific project files and directories
+!/app/public/output/**
+!/app/public/src/**
+!/app/public/index.php
+
+# Allow nginx configuration
+!/conf/nginx/site.conf.hbs
+
+# Allow composer configuration
+!/composer.json
+
+# Not allow vendor directory
+/app/public/src/vendor/**
