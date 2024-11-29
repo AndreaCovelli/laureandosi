@@ -2,6 +2,7 @@
 *
 
 # Allow git files
+!readme.md
 !.gitignore
 .idea/.gitignore
 
@@ -21,3 +22,4 @@
 
 # Not allow vendor directory
 /app/public/src/vendor/**
+**/*/readme.md
