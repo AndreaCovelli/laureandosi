@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once(realpath(dirname(__FILE__)) . '\..\Classes\CarrieraLaureando.php');
 require_once(realpath(dirname(__FILE__)) . '\..\Classes\CarrieraLaureandoInformatica.php');
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraStudente.php');
+require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraLaureando.php');
 
 class CarrieraLaureandoInformaticaTest extends TestCase
 {

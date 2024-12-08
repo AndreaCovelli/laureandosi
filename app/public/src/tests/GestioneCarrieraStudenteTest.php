@@ -1,21 +1,21 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraStudente.php');
+require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraLaureando.php');
 
-class GestioneCarrieraStudenteTest extends TestCase 
+class GestioneCarrieraLaureandoTest extends TestCase 
 {
     private $gestioneCarriera;
 
     protected function setUp(): void
     {
-        $this->gestioneCarriera = GestioneCarrieraStudente::getInstance();
+        $this->gestioneCarriera = GestioneCarrieraLaureando::getInstance();
     }
 
-    public function testRestituisciAnagraficaStudente()
+    public function testRestituisciAnagraficaLaureando()
     {
         // Esegue il metodo
-        $carriera = $this->gestioneCarriera->RestituisciAnagraficaStudente(123456);
+        $carriera = $this->gestioneCarriera->RestituisciAnagraficaLaureando(123456);
 
         // Verifica che il risultato sia un array
         $this->assertIsArray($carriera);
@@ -42,10 +42,10 @@ class GestioneCarrieraStudenteTest extends TestCase
         $this->assertIsString($entry['email_ate']);
     }
 
-    public function testRestituisciEsamiStudente()
+    public function testRestituisciEsamiLaureando()
     {
         // Esegue il metodo
-        $esami = $this->gestioneCarriera->RestituisciEsamiStudente(123456);
+        $esami = $this->gestioneCarriera->RestituisciEsamiLaureando(123456);
 
         // Verifica che il risultato sia un array
         $this->assertIsArray($esami);

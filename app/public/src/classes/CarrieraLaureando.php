@@ -1,6 +1,6 @@
 <?php
 
-require_once(realpath(dirname(__FILE__)) . '/GestioneCarrieraStudente.php');
+require_once(realpath(dirname(__FILE__)) . '/GestioneCarrieraLaureando.php');
 require_once(realpath(dirname(__FILE__)) . '/EsameLaureando.php');
 require_once(realpath(dirname(__FILE__)) . '/GestioneParametri.php');
 
@@ -30,11 +30,11 @@ class CarrieraLaureando
 
         $formuleVotoLaurea = $gestioreParametri->RestituisciParametriCdl()["degree_programs"][$cdL]["formula"];
 
-        // recupero i dati da GestioneCarrieraStudente
-        //$gestioneCarriera = new GestioneCarrieraStudente();
-        $gestioneCarriera = GestioneCarrieraStudente::getInstance();
-        $anagrafica = $gestioneCarriera->RestituisciAnagraficaStudente($matricola);
-        $carriera = $gestioneCarriera->RestituisciEsamiStudente($matricola);
+        // recupero i dati da GestioneCarrieraLaureando
+        //$gestioneCarriera = new GestioneCarrieraLaureando();
+        $gestioneCarriera = GestioneCarrieraLaureando::getInstance();
+        $anagrafica = $gestioneCarriera->RestituisciAnagraficaLaureando($matricola);
+        $carriera = $gestioneCarriera->RestituisciEsamiLaureando($matricola);
         
         $this->matricola = $matricola;
         $this->dataLaurea = $dataLaurea;
