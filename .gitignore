@@ -26,4 +26,5 @@
 # Not allow vendor directory
 /app/public/src/vendor/**
 **/*/readme.md
+tree.txt
 repomix-output.txt

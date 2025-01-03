@@ -27,7 +27,7 @@ class CarrieraLaureandoTest extends TestCase
     public function testMediaPonderata()
     {
         $media = $this->carriera->getMediaPonderata();
-        $expectedMedia = 23.655; // Calculated manually from test data
+        $expectedMedia = 23.655; // Valore calcolato manualmente dai dati di test
         $this->assertEquals($expectedMedia, round($media, 3));
     }
 
@@ -81,21 +81,32 @@ class CarrieraLaureandoTest extends TestCase
         $expectedCfuMedia = 174; // Valore calcolato manualmente dai dati di test che hanno isInAvg true
         $this->assertEquals($expectedCfuMedia, $cfuMedia);
     }
+    
     public function testStampaEsamiInMedia()
     {
         $esami = $this->carriera->getEsami();
-        echo "\nEsami che contribuiscono alla media:\n";
-        foreach ($esami as $esame) {
-            if ($esame->isCurricolare()) {
-                echo sprintf(
-                    "Nome: %s, CFU: %d, Voto: %s\n",
-                    $esame->getNome(),
-                    $esame->getCfu(),
-                    $esame->getVoto()
-                );
-            }
+        
+        // Creiamo un array con gli esami che dovrebbero fare media
+        $esamiInMedia = array_filter($esami, function($esame) {
+            return $esame->isCurricolare();
+        });
+
+        // Verifichiamo che ci siano esami in media
+        $this->assertNotEmpty($esamiInMedia);
+
+        // Verifichiamo che ogni esame in media abbia i dati corretti
+        foreach ($esamiInMedia as $esame) {
+            $this->assertIsString($esame->getNome());
+            $this->assertIsInt($esame->getCfu());
+            $this->assertNotNull($esame->getVoto());
+            $this->assertTrue($esame->isCurricolare());
         }
-        // Aggiungiamo un'asserzione per rendere valido il test
-        $this->assertTrue(true);
+
+        // Verifichiamo la corrispondenza con i CFU totali
+        $cfuTotali = array_reduce($esamiInMedia, function($sum, $esame) {
+            return $sum + $esame->getCfu();
+        }, 0);
+        
+        $this->assertEquals($cfuTotali, $this->carriera->getCfuTotali());
     }
 }

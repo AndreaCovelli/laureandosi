@@ -19,7 +19,7 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
         error_reporting(E_ALL);
     }
 
-    public function testCreationProspettoPDFLaureandoSimulazione()
+    public function testCreazioneProspettoPDFLaureandoSimulazione()
     {
         $prospetto = new ProspettoPDFLaureandoSimulazione($this->pdf, $this->matricola, $this->cdl, $this->dataLaurea);
         $this->assertInstanceOf(ProspettoPDFLaureandoSimulazione::class, $prospetto);

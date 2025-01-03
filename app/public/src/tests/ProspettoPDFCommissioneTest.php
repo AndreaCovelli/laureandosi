@@ -21,7 +21,7 @@ class ProspettoPDFCommissioneTest extends TestCase
         error_reporting(E_ALL);
     }
 
-    public function testCreationProspettoPDFCommissione()
+    public function testCreazioneProspettoPDFCommissione()
     {
         $prospetto = new ProspettoPDFCommissione($this->pdf, $this->matricola_list, $this->cdl, $this->dataLaurea);
         $this->assertInstanceOf(ProspettoPDFCommissione::class, $prospetto);

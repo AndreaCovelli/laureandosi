@@ -18,7 +18,7 @@ class ProspettoPDFLaureandoTest extends TestCase
         $this->dataLaurea = "2023-12-31";
     }
 
-    public function testCreationProspettoPDFLaureando()
+    public function testCreazioneProspettoPDFLaureando()
     {
         $prospetto = new ProspettoPDFLaureando($this->pdf, $this->matricola, $this->cdl, $this->dataLaurea);
         $this->assertInstanceOf(ProspettoPDFLaureando::class, $prospetto);
@@ -39,7 +39,7 @@ class ProspettoPDFLaureandoTest extends TestCase
     public function testSalvaProspetto()
     {
         $outputDir = realpath(dirname(__FILE__)) . '\..\output';
-        print_r($outputDir);
+        // print_r($outputDir);
         $filename = $outputDir . DIRECTORY_SEPARATOR . 'test';
         
         $this->pdf->expects($this->once())

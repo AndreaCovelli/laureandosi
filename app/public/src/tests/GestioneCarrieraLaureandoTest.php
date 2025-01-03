@@ -32,7 +32,7 @@ class GestioneCarrieraLaureandoTest extends TestCase
         $this->assertArrayHasKey('data_nascita', $entry);
         $this->assertArrayHasKey('email_ate', $entry);
         // display the entry
-        print_r($entry);
+        // print_r($entry);
 
         // Verifica il tipo dei dati
         $this->assertIsString($entry['nome']);
@@ -55,7 +55,7 @@ class GestioneCarrieraLaureandoTest extends TestCase
         $this->assertArrayHasKey('Esame', $esami['Esami']);
         $this->assertIsArray($esami['Esami']['Esame']);
         $this->assertNotEmpty($esami['Esami']['Esame']);
-        print_r($esami['Esami']['Esame']);
+        // print_r($esami['Esami']['Esame']);
 
         // Verifica la struttura del primo esame
         $primoEsame = $esami['Esami']['Esame'][0];
