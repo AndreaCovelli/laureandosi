@@ -1,9 +1,9 @@
 <?php
 
-require(realpath(dirname(__FILE__)) . "/../../lib/fpdf184/fpdf.php");
-require(realpath(dirname(__FILE__)) . "/Prospetto.php");
-require(realpath(dirname(__FILE__)) . "/CarrieraLaureando.php");
-require(realpath(dirname(__FILE__)) . "/CarrieraLaureandoInformatica.php");
+require_once(realpath(dirname(__FILE__)) . "/../../lib/fpdf184/fpdf.php");
+require_once(realpath(dirname(__FILE__)) . "/Prospetto.php");
+require_once(realpath(dirname(__FILE__)) . "/CarrieraLaureando.php");
+require_once(realpath(dirname(__FILE__)) . "/CarrieraLaureandoInformatica.php");
 
 class ProspettoPDFLaureando extends Prospetto{
     protected $matricola;

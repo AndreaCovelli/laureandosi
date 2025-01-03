@@ -28,7 +28,7 @@ Per realizzare il progetto è stato utilizzato il software **LocalWP** per la cr
 
 - Installare php dal seguente link: https://windows.php.net/download/ (x64 Non Thread Safe)
 - Installare composer dal seguente link: https://getcomposer.org/Composer-Setup.exe
-- Per installare php-unit dare il seguente comando nella cartella del progetto:
+- Per installare php-unit dare il seguente comando nella cartella del progetto (all'interno di `\src`):
 
 ```bash
 composer require --dev phpunit/phpunit
