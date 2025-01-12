@@ -13,6 +13,7 @@
 !/app/public/output/**
 !/app/public/src/**
 !/app/public/index.php
+!/app/public/styles.css
 
 # Allow nginx configuration
 !/conf/nginx/site.conf.hbs
