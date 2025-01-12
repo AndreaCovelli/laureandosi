@@ -5,7 +5,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     private bool $bonus;
 
     /**
-     * Constructor for CarrieraLaureandoInformatica
+     * Costruttore per CarrieraLaureandoInformatica
      * @param int $matricola
      * @param string $CdL
      * @param string $dataLaurea
@@ -14,16 +14,26 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
     public function __construct(int $matricola, string $CdL, string $dataLaurea) {
         parent::__construct($matricola, $CdL, $dataLaurea);
         $this->mediaEsamiInformatica = $this->RestituisciMediaEsamiInformatici();
-        $this->bonus = $this->CalcolaBonus(); // Verifica se lo studente ha diritto al bonus
+        $this->bonus = $this->CalcolaBonus(); // Verifica se il laureando ha diritto al bonus
+        
+        // Se il laureando ha diritto al bonus, rimuove l'esame con voto più basso
         if($this->bonus){
-            $this->rimuoviEsamePiuBasso(); // Rimuove l'esame con voto più basso
+            $this->escludiEsamePiuBassoDallaMedia(); // Rimuove l'esame con voto più basso
             $this->RestituisciMediaPonderata(); // Aggiorna la media ponderata
         }
     }
 
     /**
-     * Calculates and returns Computer Engineering specific weighted average
-     * @return float
+     * Calcola la media ponderata degli esami informatici del corso di laurea.
+     * 
+     * Il calcolo viene effettuato considerando solo gli esami che:
+     * Sono presenti nella lista degli esami informatici definita in esami_informatici.json e
+     * sono inclusi nel calcolo della media (isInAvg = true)
+     * 
+     * In caso di "30 e lode", il voto viene convertito in 33 per il calcolo.
+     * Se non ci sono esami informatici, viene restituita come media infomatici 0.
+     * 
+     * @return float La media ponderata degli esami informatici, non arrotondata
      */
     
      public function RestituisciMediaEsamiInformatici(): float {
@@ -45,13 +55,20 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
             return 0.0;
         }
     
-        return $sommaVoti / $sommaCFU; // Arrotonda alla seconda cifra decimale
-        //return round($sommaVoti / $sommaCFU, 2); // Arrotonda alla seconda cifra decimale
+        return $sommaVoti / $sommaCFU; // Restituisco la media ponderata non arrotondata
+        // return round($sommaVoti / $sommaCFU, 2); // Arrotonda alla seconda cifra decimale
     }
 
     /**
-     * Calcola se lo studente ha diritto al bonus
-     * @return bool
+     * Calcola se un laureando è idoneo per il bonus in base alla data di laurea.
+     * 
+     * Un laureando è idoneo per il bonus se si laurea
+     * entro il 31 maggio del quarto anno dopo l'immatricolazione.
+     * 
+     * Il bonus consente di rimuovere il voto più basso dal calcolo della media,
+     * migliorando la media e dunque il voto finale.
+     * 
+     * @return bool true se il laureando è idoneo per il bonus, false altrimenti
      */
     public function CalcolaBonus(): bool {
         $fine_bonus = date('Y-m-d', strtotime("+4 years", strtotime($this->dataImmatricolazione . "-05-31")));
@@ -66,12 +83,13 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
 
     /**
      * Rimuove l'esame con voto più basso.
-     * Se ci sono più esami con lo stesso voto, rimuove quello con più CFU
+     * Se ci sono più esami con lo stesso voto, rimuove quello con più CFU.
+     * Questa funzione va chiamata solo se il laureando ha diritto al bonus.
      * @return void
      */
-    public function rimuoviEsamePiuBasso(): void {
+    public function escludiEsamePiuBassoDallaMedia(): void {
         $esami = $this->esame;
-        $votoMinimo = 34; // Inizializzato a 31 poiché i voti sono da 18 a 33 (30 e lode = 33 a ingegneria)
+        $votoMinimo = 34; // Inizializzato a 34 poiché i voti sono da 18 a 33 (30 e lode = 33 a ingegneria)
         $cfuMassimi = 0;
         $indiceDaRimuovere = -1;
     

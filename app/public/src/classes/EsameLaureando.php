@@ -5,8 +5,11 @@ class EsameLaureando{
     private string $voto;
     private int $cfu;
     private string $data;
+    /** @var bool Esame nel curriculum dello studente */
     private bool $curricolare;
+    /** @var bool Esame che fa media per la laurea attuale*/
     private bool $isInAvg;
+    /** @var bool Esame nella lista degli esami informatici */
     private bool $informatico;
 
     public function __construct(int $matricola, string $nome, string $voto, int $cfu, string $data, bool $curricolare=false, bool $isInAvg=true){
@@ -17,7 +20,7 @@ class EsameLaureando{
         $this->data = $data;
         $this->curricolare = $curricolare;
         $this->isInAvg = $isInAvg;
-        $this->informatico = false;
+        $this->informatico = false; // Viene nel caso settato a true dopo, nella funzione elabora_dati
         $this->elabora_dati();
     }
 
@@ -27,16 +30,18 @@ class EsameLaureando{
      */
     private function elabora_dati(): void {
         $gestioneParametri = GestioneParametri::getInstance();
+
+        // Recupero la lista degli esami informatici (per la T. Ing. Informatica)
         $esamiInformatici = $gestioneParametri->RestituisciParametriEsamiInformatici()['T. Ing. Informatica'];
         
         if ($this->nome !== "TEST DI VALUTAZIONE DI INGEGNERIA" && $this->nome !== 'null') {
             if ($this->voto === "30 e lode" || $this->voto === "30 e lode " || $this->voto === "30  e lode") {
-                $this->voto = "33";
+                $this->voto = "33"; // La lode a ingegneria vale 33
             }
             $this->voto = trim($this->voto);
         }
         
-        // Check if exam is informatico
+        // Controlla che l'esame sia nella lista degli esami informatici
         if (in_array($this->nome, $esamiInformatici)) {
             $this->informatico = true;
         }

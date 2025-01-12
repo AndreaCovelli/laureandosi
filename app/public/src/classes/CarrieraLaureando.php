@@ -23,15 +23,11 @@ class CarrieraLaureando
      * Costruttore per CarrieraLaureando
      */
     public function __construct(int $matricola, string $cdL, string $dataLaurea) {
-        //$string = file_get_contents("./config_files/degree_formulas.json");
-        //$formuleVotoLaurea = json_decode($string, true);
+        // Recupero i dati da GestioneParametri per la formula di calcolo del voto di laurea
+        $gestioneParametri = GestioneParametri::getInstance();
+        $this->formulaVotoLaurea = $gestioneParametri->RestituisciParametriCdl()["degree_programs"][$cdL]["formula"];
 
-        $gestioreParametri = GestioneParametri::getInstance();
-
-        $formuleVotoLaurea = $gestioreParametri->RestituisciParametriCdl()["degree_programs"][$cdL]["formula"];
-
-        // recupero i dati da GestioneCarrieraLaureando
-        //$gestioneCarriera = new GestioneCarrieraLaureando();
+        // Recupero i dati da GestioneCarrieraLaureando per l'anagrafica e la carriera del laureando
         $gestioneCarriera = GestioneCarrieraLaureando::getInstance();
         $anagrafica = $gestioneCarriera->RestituisciAnagraficaLaureando($matricola);
         $carriera = $gestioneCarriera->RestituisciEsamiLaureando($matricola);
@@ -44,9 +40,6 @@ class CarrieraLaureando
         $this->email = $anagrafica["Entries"]["Entry"]["email_ate"];
 
         $this->dataImmatricolazione = $carriera["Esami"]["Esame"][0]["ANNO_IMM"];
-        //$this->formulaVotoLaurea = $formuleVotoLaurea["degree_programs"][$this->cdL]["formula"];
-        //$this->formulaVotoLaurea = $formuleVotoLaurea["degree_programs"][$this->cdL]["formula"];
-        $this->formulaVotoLaurea = $formuleVotoLaurea;
 
         $this->esame = $this->elaboraEsami($carriera);
     
@@ -59,16 +52,19 @@ class CarrieraLaureando
      * @return array
      */
     public function elaboraEsami($carriera): array {
+        // Inizializza l'array di esami
         $esami = array();
+
+        // Recupero i filtri degli esami
         $gestioneParametri = GestioneParametri::getInstance();
         $filtroEsami = $gestioneParametri->RestituisciFiltroEsami();
         
-        // Get general filters for current degree program
+        // Ottieni i filtri per il corso di laurea del laureando
         $filtriCdL = $filtroEsami[$this->cdL]['*'];
         $esamiNonAvg = $filtriCdL['esami-non-avg'];
         $esamiNonCdl = $filtriCdL['esami-non-cdl'];
 
-        // Add specific filters for student if they exist
+        // Controlla se ci sono filtri specifici per la matricola del laureando
         if (isset($filtroEsami[$this->cdL][$this->matricola])) {
             $filtriSpecifici = $filtroEsami[$this->cdL][$this->matricola];
             $esamiNonAvg = array_merge($esamiNonAvg, $filtriSpecifici['esami-non-avg']);
@@ -96,6 +92,7 @@ class CarrieraLaureando
                 $isInAvg
             );
             
+            // Aggiungi l'oggetto EsameLaureando appena creato all'array
             array_push($esami, $esameObj);
         }
         
@@ -103,7 +100,7 @@ class CarrieraLaureando
     }
 
     /**
-     * Calcola e restituisce la media ponderata
+     * Calcola e restituisce la media ponderata per CFU
      * @return float
      */
     public function RestituisciMediaPonderata(): float {
@@ -112,7 +109,7 @@ class CarrieraLaureando
         $sommaCFU = 0;
 
         foreach ($esami as $esame) {
-            $voto = intval($esame->getVoto()); // Si assume intero dati i controlli effettuati in EsameLaureando
+            $voto = intval($esame->getVoto()); // Si assume intero, dati i controlli effettuati in EsameLaureando
             $cfu = $esame->getCfu();
             
             if ($esame->isInAvg()) {
@@ -130,7 +127,7 @@ class CarrieraLaureando
     }
 
     /**
-     * Calcola i CFU totali e i CFU che fanno media
+     * Calcola i CFU totali (curricolari) e i CFU che fanno media
      * @return void
      */
     private function calcolaCFU(): void {
@@ -191,7 +188,7 @@ class CarrieraLaureando
     }
 
     /**
-     * Ritorna la data di immatricolazione del laureando
+     * Getter per la data di immatricolazione del laureando
      * @return string
      */
     public function getDataLaurea(): string {
@@ -199,7 +196,7 @@ class CarrieraLaureando
     }
     
     /**
-     * Ritorna la formula di calcolo del voto di laurea
+     * Getter per la formula di calcolo del voto di laurea
      * @return string
      */
     public function getFormulaVotoLaurea(): string {
@@ -207,7 +204,7 @@ class CarrieraLaureando
     }
     
     /**
-     * Ritorna l'array di esami del laureando
+     * Getter per l'array di esami del laureando
      * @return array
      */
     public function getEsami(): array {
@@ -215,7 +212,7 @@ class CarrieraLaureando
     }
     
     /**
-     * Ritorna la media ponderata
+     * Getter per la media ponderata
      * @return float
      */
     public function getMediaPonderata(): float {
@@ -223,7 +220,7 @@ class CarrieraLaureando
     }
 
     /**
-     * Ritorna il numero di CFU totali considerati per il calcolo della media ponderata
+     * Getter per il numero di CFU totali considerati per il calcolo della media ponderata
      * @return int
      */
     public function getCfuTotali(): int {
@@ -231,7 +228,7 @@ class CarrieraLaureando
     }
     
     /**
-     * Ritorna il numero di CFU che fanno media considerati per il calcolo della media ponderata
+     * Getter per il numero di CFU che fanno media e considerati per il calcolo della media ponderata
      * @return int
      */
     public function getCfuMedia(): int {

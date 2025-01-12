@@ -5,6 +5,9 @@ require_once(realpath(dirname(__FILE__)) . "/Prospetto.php");
 require_once(realpath(dirname(__FILE__)) . "/CarrieraLaureando.php");
 require_once(realpath(dirname(__FILE__)) . "/CarrieraLaureandoInformatica.php");
 
+/**
+ * Classe per la generazione del prospetto di un laureando in formato PDF
+ */
 class ProspettoPDFLaureando extends Prospetto{
     protected $matricola;
     protected $carriera_laureando;
@@ -22,6 +25,14 @@ class ProspettoPDFLaureando extends Prospetto{
 
     /**
      * Genera il prospetto
+     * Il prospetto per il laureando è composto da tre sezioni:
+     * - Dati anagrafici del laureando
+     * - Lista degli esami sostenuti
+     * - Statistiche sulla carriera
+     * 
+     * Le tre sezioni elencate sopra sono nello stesso ordine
+     * in cui compaiono all'interno del prospetto in pdf
+     * 
      * @return void
      */
     public function generaProspetto() {
@@ -32,19 +43,19 @@ class ProspettoPDFLaureando extends Prospetto{
         $this->pdf->Cell(0, 5, $this->carriera_laureando->getCdL(), 0, 1, 'C');
         $this->pdf->Cell(0, 5, 'CARRIERA E SIMULAZIONE DEL VOTO DI LAUREA', 0, 1, 'C');
 
-        // Aggiungo le varie sezioni
+        // Aggiungo le tre sezioni del prospetto
         $this->dati_anagrafici();
         $this->lista_esami();
         $this->statistiche();
     }
 
     /**
-     * Aggiunge i dati anagrafici del laureando
+     * Aggiunge al prospetto i dati anagrafici del laureando
      * @return void
      */
     private function dati_anagrafici(): void{
         $this->pdf->SetFontSize(10);
-        //$this->pdf->SetFont('Arial');
+        // $this->pdf->SetFont('Arial');
 
         $is_informatico = is_a($this->carriera_laureando, CarrieraLaureandoInformatica::class);
 
@@ -65,11 +76,11 @@ class ProspettoPDFLaureando extends Prospetto{
             $this->pdf->Cell(0, 5, $this->carriera_laureando->getBonus() ? 'SI' : 'No', 0, 1);
         }
 
-        //$this->pdf->Ln(1.5);
+        // $this->pdf->Ln(1.5);
     }
 
     /**
-     * Aggiunge la lista di esami della carriera del laureando
+     * Aggiunge al prospetto la lista di esami della carriera del laureando
      * @return void
      */
     private function lista_esami(): void {
@@ -105,20 +116,20 @@ class ProspettoPDFLaureando extends Prospetto{
     }
 
     /**
-     * Aggiunge le statistiche relative alla carriera del laureando
+     * Aggiunge al prospetto le statistiche relative alla carriera del laureando
      * @return void
      */
     private function statistiche(): void {
-        //$string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/degree_formulas.json");
-        //$parametri = json_decode($string, true);
 
         $gestioneParametri = GestioneParametri::getInstance();
         $parametri = $gestioneParametri->RestituisciParametriCdl();
 
+        // Verifica se lo studente è di Ingegneria Informatica
         $is_informatico = is_a($this->carriera_laureando, CarrieraLaureandoInformatica::class);
 
         $this->pdf->SetFontSize(10);
 
+        // Crea il riquadro contenente le statistiche
         $this->pdf->Rect($this->pdf->GetX(), $this->pdf->GetY(), $this->pdf->GetPageWidth() - 20, 20 + 10 * $is_informatico);
 
         $this->pdf->Cell(80, 5, 'Media Pesata (M):', 0, 0);
@@ -126,13 +137,19 @@ class ProspettoPDFLaureando extends Prospetto{
         $this->pdf->Cell(80, 5, 'Crediti che fanno media (CFU):', 0, 0);
         $this->pdf->Cell(0, 5, $this->carriera_laureando->getCfuMedia(), 0, 1);
         $this->pdf->Cell(80, 5, 'Crediti curriculari conseguiti:', 0, 0);
-        $cfu_totali_corso = $parametri["degree_programs"][$this->carriera_laureando->getCdL()]["required_cfu"];        $this->pdf->Cell(0, 5, $this->carriera_laureando->getCfuTotali() . '/' . $cfu_totali_corso, 0, 1);
+
+        $cfu_totali_corso = $parametri["degree_programs"][$this->carriera_laureando->getCdL()]["required_cfu"];
+        
+        $this->pdf->Cell(0, 5, $this->carriera_laureando->getCfuTotali() . '/' . $cfu_totali_corso, 0, 1);
+
         if ($is_informatico) {
             $this->pdf->Cell(80, 5, 'Voto di tesi (T):', 0, 0);
             $this->pdf->Cell(0, 5, 0, 0, 1);
         }
+
         $this->pdf->Cell(80, 5, 'Formula calcolo voto di laurea:', 0, 0);
         $this->pdf->Cell(0, 5, $this->carriera_laureando->getFormulaVotoLaurea(), 0, 1);
+
         if ($is_informatico) {
             $this->pdf->Cell(80, 5, 'Media pesata esami INF:', 0, 0);
             $this->pdf->Cell(0, 5, round($this->carriera_laureando->getMediaEsamiInformatica(), 3), 0, 1);

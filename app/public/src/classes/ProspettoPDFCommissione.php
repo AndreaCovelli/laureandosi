@@ -2,6 +2,20 @@
 require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureandoSimulazione.php');
 require_once(realpath(dirname(__FILE__)) . '/ProspettoPDFLaureando.php');
 
+/**
+ * Classe ProspettoPDFCommissione
+ * 
+ * Questa classe gestisce la generazione del prospetto PDF per la commissione di laurea
+ * 
+ * Il prospetto generato include nella prima pagina una lista riepilogativa di tutti i laureandi
+ * e nelle pagine successive sono presenti i prospetti individuali con simulazioni del voto di laurea
+ * 
+ * La classe usa ProspettoPDFLaureandoSimulazione per generare i prospetti individuali con simulazione
+ * da aggiungere al prospetto della commissione
+ * 
+ * La classe inoltre usa ProspettoPDFLaureando per generare i prospetti individuali senza simulazione
+ * da inviare ai singoli laureandi (a ciascun laureando il proprio prospetto)
+ */
 class ProspettoPDFCommissione extends Prospetto{
     private array $lista_matricole;
     private array $lista_laureandi;
@@ -33,7 +47,7 @@ class ProspettoPDFCommissione extends Prospetto{
     }
 
     /**
-     * Genera prospetti per la commissione e per i singoli laureandi
+     * Genera prospetto per la commissione e i prospetti per i singoli laureandi
      * @return void
      */
     public function generaProspetto(): void {
@@ -63,8 +77,12 @@ class ProspettoPDFCommissione extends Prospetto{
     }
 
     /**
-     * Invia prospetti ai laureandi
-     * @return bool
+     * Invia via email ai laureandi i prospetti generati
+     * 
+     * Utilizza la classe GestioneInvioEmail per inviare a ogni laureando
+     * il proprio prospetto individuale in formato PDF.
+     *
+     * @return bool True se tutti gli invii hanno successo, False altrimenti
      */
     public function inviaProspettiLaureandi(): bool {
         $email_manager = GestioneInvioEmail::getInstance();
@@ -73,6 +91,11 @@ class ProspettoPDFCommissione extends Prospetto{
 
     /**
      * Aggiunge la lista dei laureandi al prospetto
+     * Genera una tabella contenente in ogni riga:
+     * - Cognome e nome di ogni laureando
+     * - Corso di laurea
+     * - Spazio per il voto di laurea
+     *
      * @return void
      */
     private function add_lista_laureandi() : void {

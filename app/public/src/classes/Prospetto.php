@@ -1,10 +1,18 @@
 <?php
-
+/**
+ * Classe base per la generazione di prospetti in formato PDF
+ * 
+ * Struttura:
+ * Prospetto (abstract)
+ * ├── ProspettoPDFLaureando
+ * │   └── ProspettoPDFLaureandoSimulazione
+ * └── ProspettoPDFCommissione
+ */
 abstract class Prospetto {
     protected \FPDF $pdf;
 
     /**
-     * Construttore
+     * Construttore con dependency injection di FPDF
      * @param \FPDF $pdf
      */
     public function __construct(\FPDF $pdf) {

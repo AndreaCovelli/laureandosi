@@ -3,9 +3,16 @@
 require_once(realpath(dirname(__FILE__)) . '\ProspettoPDFLaureando.php');
 require_once(realpath(dirname(__FILE__)) . '\GestioneParametri.php');
 
+/**
+ * Classe per la generazione del prospetto di simulazione del voto di laurea
+ * Viene utilizzata per aggiungere la simulazione del voto di laurea al prospetto laureando
+ * 
+ * Questa classe viene chiamata da ProspettoPDFCommissione per generare il prospetto di un laureando
+ * con in più la simulazione del voto di laurea
+ */
 class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
 
-    // non ho messo il construttore perchè uso quello della classe padre
+    // Non ho messo il construttore perchè uso quello della classe padre
     // e lo ridefinisco solo in ProspettoPDFCommissione
 
     /**
@@ -13,9 +20,9 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
      * @return void
      */
     public function GeneraProspettoSimulazione(): void {
-        parent::generaProspetto(); // chiamo il metodo della classe padre
+        parent::generaProspetto(); // Chiamo il metodo della classe padre
         
-        $this->aggiungiSimulazione(); // aggiungo la simulazione
+        $this->aggiungiSimulazione(); // Aggiungo la simulazione
     }
 
     /**
@@ -25,18 +32,18 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
     private function aggiungiSimulazione(): void {
         $gestoreParametri = GestioneParametri::getInstance();
 
-        // formula di calcolo del voto di laurea
+        // Formula di calcolo del voto di laurea
         $formula = $this->carriera_laureando->getFormulaVotoLaurea();
         
-        // parametro per il voto tesi T
+        // Parametro per il voto tesi T
         $parameter_t = $gestoreParametri->RestituisciParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters']['par-T'];
-        // parametro per il voto commissione C
+        // Parametro per il voto commissione C
         $parameter_c = $gestoreParametri->RestituisciParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters']['par-C'];
 
         list($t_min,$t_max,$t_step) = array_values($parameter_t);
         list($c_min,$c_max,$c_step) = array_values($parameter_c);
 
-        // Sostituisci i segnaposto nella formula con i valori effettivi
+        // Sostituisci le lettere nella formula con i valori effettivi
         $mediaPonderata = $this->carriera_laureando->getMediaPonderata();
         $cfuMedia = $this->carriera_laureando->getCfuMedia();
         $formula = str_replace(['M', 'CFU'], [$mediaPonderata, $cfuMedia], $formula);
@@ -59,6 +66,7 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
      * Calcola la lista dei possibili voti di laurea
      * e li aggiunge al prospetto simulazione.
      * La funzione differenzia tra voto di tesi e voto di commissione
+     * 
      * @param string $formula
      * @param int $min
      * @param int $max
@@ -84,7 +92,7 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
         // Se stiamo calcolando per T, azzeriamo C nella formula e viceversa
         $formula = $isVotoTesi ? str_replace('C', '0', $formula) : str_replace('T', '0', $formula);
 
-        // Calcola layout tabella
+        // Calcola layout della tabella
         $colonne = ($max - $min) / $step > 7 ? 2 : 1;
         $righe = ceil(($max - $min + 1) / $step / $colonne);
         $width_col = ($this->pdf->GetPageWidth() - 20) / $colonne;

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Gestisce i parametri di configurazione
+ * 
+ * Questa classe è implementata come Singleton per garantire una gestione 
+ * coerente dei parametri in tutta l'applicazione e per evitare che più istanze 
+ * carichino ripetutamente gli stessi file di configurazione
+ */
 class GestioneParametri {
     private static ?GestioneParametri $instance = null;
 
@@ -24,8 +30,8 @@ class GestioneParametri {
      * @return array
      */
     public function RestituisciParametriCdl(): array {
-        //$string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/degree_formulas.json");
-        $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."degree_formulas.json");
+        // $string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/parametri_voto_laurea.json");
+        $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."parametri_voto_laurea.json");
         return json_decode($string, true);
     }
 
@@ -34,7 +40,7 @@ class GestioneParametri {
      * @return array
      */
     public function RestituisciParametriEsamiInformatici(): array {
-        //$string = file_get_contents(realpath(dirname(__FILE__))."esami_informatici.json");
+        // $string = file_get_contents(realpath(dirname(__FILE__))."esami_informatici.json");
         $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."esami_informatici.json");
         return json_decode($string, true);
     }
@@ -44,7 +50,7 @@ class GestioneParametri {
      * @return array
      */
     public function RestituisciFiltroEsami(): array {
-        //$string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/filtro_esami.json");
+        // $string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/filtro_esami.json");
         $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."filtro_esami.json");
         return json_decode($string, true);
     }
