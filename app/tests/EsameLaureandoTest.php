@@ -3,10 +3,16 @@ use PHPUnit\Framework\TestCase;
 require_once(__DIR__ . '/../../app/src/classes/EsameLaureando.php');
 require_once(__DIR__ . '/../../app/src/classes/GestioneParametri.php');
 
+/**
+ * Insieme di test per la classe EsameLaureando.
+ */
 class EsameLaureandoTest extends TestCase 
 {
     private EsameLaureando $esame;
     
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $this->esame = new EsameLaureando(
@@ -20,6 +26,9 @@ class EsameLaureandoTest extends TestCase
         );
     }
 
+    /**
+     * Testa il costruttore e la conversione del voto da '30 e lode' a 33.
+     */
     public function testCostruttoreEConversione30eLode()
     {
         $this->assertEquals(123456, $this->esame->getMatricola());
@@ -31,12 +40,18 @@ class EsameLaureandoTest extends TestCase
         $this->assertTrue($this->esame->isInAvg());
     }
 
+    /**
+     * Testa il metodo setInAvg.
+     */
     public function testSetInAvg()
     {
         $this->esame->setInAvg(false);
         $this->assertFalse($this->esame->isInAvg());
     }
 
+    /**
+     * Testa il metodo isInformatico.
+     */
     public function testIsInformatico()
     {
         // Per default un esame non è informatico

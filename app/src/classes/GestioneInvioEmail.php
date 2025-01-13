@@ -115,7 +115,7 @@ class GestioneInvioEmail{
     }
 
     /**
-     * Invia email con prospetto di laurea in allegato
+     * Invia email a ciascun laureando con il prospetto di laurea in allegato
      * @param array $carriere
      * @param string $pdf_path
      * @return bool true se tutti gli invii hanno successo, false se almeno uno fallisce

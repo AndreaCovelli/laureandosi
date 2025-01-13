@@ -5,10 +5,16 @@ require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureando.php');
 require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureandoInformatica.php');
 require_once(__DIR__ . '/../../app/src/classes/GestioneCarrieraLaureando.php');
 
+/**
+ * Insieme di test per la classe CarrieraLaureandoInformatica.
+ */
 class CarrieraLaureandoInformaticaTest extends TestCase
 {
     private CarrieraLaureandoInformatica $carriera;
     
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $matricola = 123456;
@@ -17,6 +23,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         $this->carriera = new CarrieraLaureandoInformatica($matricola, $CdL, $dataLaurea);
     }
 
+    /**
+     * Testa il metodo RestituisciMediaEsamiInformatici.
+     */
     public function testRestituisciMediaEsamiInformatici()
     {
         $media = $this->carriera->RestituisciMediaEsamiInformatici();
@@ -27,6 +36,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         $this->assertEquals($expectedMedia, round($media, 2));
     }
 
+    /**
+     * Testa il metodo testCalcolaBonusInCorso.
+     */
     public function testCalcolaBonusInCorso()
     {
         // Laureando immatricolato nel 2016, si laurea nel 2020 entro il 31 maggio (in corso)
@@ -34,6 +46,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         $this->assertTrue($carrieraInCorso->getBonus());
     }
 
+    /**
+     * Testa il metodo testCalcolaBonusFuoriCorso.
+     */
     public function testCalcolaBonusFuoriCorso()
     {
         // Laureando immatricolato nel 2016, si laurea nel 2023 (fuori corso)
@@ -41,6 +56,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         $this->assertFalse($carrieraFuoriCorso->getBonus());
     }
 
+    /**
+     * Testa il metodo testCalcolaBonusInCorso.
+     */
     public function testRimozioneEsamePiuBasso()
     {
         // Crea una carriera con bonus
@@ -75,6 +93,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         $this->assertEquals($countPrima - 1, $countDopo);
     }
 
+    /**
+     * Testa il bonus sulla media ponderata.
+     */
     public function testMediaPonderataDopoBonusEsame()
     {
         // Crea una carriera con bonus

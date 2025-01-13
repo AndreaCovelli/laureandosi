@@ -3,15 +3,24 @@ use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . '/../../app/src/classes/GestioneParametri.php');
 
+/**
+ * Insieme di test per la classe GestioneParametri.
+ */
 class GestioneParametriTest extends TestCase 
 {
     private GestioneParametri $gestioneParametri;
     
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $this->gestioneParametri = GestioneParametri::getInstance();
     }
 
+    /**
+     * Testa il singleton della classe GestioneParametri.
+     */
     public function testSingleton()
     {
         $instance1 = GestioneParametri::getInstance();
@@ -19,6 +28,9 @@ class GestioneParametriTest extends TestCase
         $this->assertSame($instance1, $instance2);
     }
 
+    /**
+     * Testa il metodo RestituisciParametriCdl.
+     */
     public function testRestituisciParametriCdl()
     {
         $parametri = $this->gestioneParametri->RestituisciParametriCdl();
@@ -37,6 +49,9 @@ class GestioneParametriTest extends TestCase
         $this->assertArrayHasKey('parameters', $corso);
     }
 
+    /**
+     * Testa il metodo RestituisciParametriEsamiInformatici.
+     */
     public function testRestituisciParametriEsamiInformatici()
     {
         $esamiInf = $this->gestioneParametri->RestituisciParametriEsamiInformatici();
@@ -50,6 +65,9 @@ class GestioneParametriTest extends TestCase
         $this->assertContains('FONDAMENTI DI PROGRAMMAZIONE', $esamiInf['T. Ing. Informatica']);
     }
 
+    /**
+     * Testa il metodo RestituisciFiltroEsami.
+     */
     public function testRestituisciFiltroEsami()
     {
         $filtri = $this->gestioneParametri->RestituisciFiltroEsami();

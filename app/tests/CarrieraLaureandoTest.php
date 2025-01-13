@@ -4,10 +4,16 @@ use PHPUnit\Framework\TestCase;
 require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureando.php');
 require_once(__DIR__ . '/../../app/src/classes/GestioneCarrieraLaureando.php');
 
+/**
+ * Insieme di test per la classe CarrieraLaureando.
+ */
 class CarrieraLaureandoTest extends TestCase 
 {
     private CarrieraLaureando $carriera;
     
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $matricola = 123456;
@@ -15,6 +21,17 @@ class CarrieraLaureandoTest extends TestCase
         $this->carriera = new CarrieraLaureando($matricola, $CdL, "2023-10-01");
     }
 
+    /**
+     * Testa la creazione di un oggetto CarrieraLaureando.
+     */
+    public function testCreazioneCarrieraLaureando()
+    {
+        $this->assertInstanceOf(CarrieraLaureando::class, $this->carriera);
+    }
+
+    /**
+     * Testa l'anagrafica del laureando.
+     */
     public function testAnagraficaLaurendo()
     {
         $this->assertEquals(123456, $this->carriera->getMatricola());
@@ -24,6 +41,9 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertEquals("T. Ing. Informatica", $this->carriera->getCdL());
     }
 
+    /**
+     * Testa il calcolo della media ponderata.
+     */
     public function testMediaPonderata()
     {
         $media = $this->carriera->getMediaPonderata();
@@ -31,6 +51,9 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertEquals($expectedMedia, round($media, 3));
     }
 
+    /**
+     * Testa il metodo getFormulaVotoLaurea.
+     */
     public function testFormulaVotoLaurea() 
     {
         $formula = $this->carriera->getFormulaVotoLaurea();
@@ -38,6 +61,9 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertNotEmpty($formula);
     }
 
+    /**
+     * Testa il metodo getEsami.
+     */
     public function testEsami()
     {
         $esami = $this->carriera->getEsami();
@@ -46,6 +72,9 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertInstanceOf('EsameLaureando', $esami[0]);
     }
 
+    /**
+     * Testa il metodo elaboraEsami.
+     */
     public function testElaboraEsami()
     {
         $carriera = [
@@ -68,6 +97,10 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertCount(1, $esami);
         $this->assertInstanceOf('EsameLaureando', $esami[0]);
     }
+
+    /**
+     * Testa il calcolo dei CFU totali.
+     */
     public function testCFUTotali()
     {
         $cfuTotali = $this->carriera->getCfuTotali();
@@ -75,6 +108,9 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertEquals($expectedCfuTotali, $cfuTotali);
     }
 
+    /**
+     * Testa il calcolo dei CFU in media.
+     */
     public function testCFUMedia()
     {
         $cfuMedia = $this->carriera->getCfuMedia();
@@ -82,7 +118,10 @@ class CarrieraLaureandoTest extends TestCase
         $this->assertEquals($expectedCfuMedia, $cfuMedia);
     }
     
-    public function testStampaEsamiInMedia()
+    /**
+     * Testa la lista degli esami in media.
+     */
+    public function testListaEsamiInMedia()
     {
         $esami = $this->carriera->getEsami();
         

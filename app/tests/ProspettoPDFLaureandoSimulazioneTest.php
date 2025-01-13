@@ -4,6 +4,9 @@ use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . '/../../app/src/classes/ProspettoPDFLaureandoSimulazione.php');
 
+/**
+ * Insieme di test per la classe ProspettoPDFLaureandoSimulazione.
+ */
 class ProspettoPDFLaureandoSimulazioneTest extends TestCase
 {
     private $pdf;
@@ -11,6 +14,9 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
     private $cdl;
     private $dataLaurea;
 
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $this->pdf = $this->createMock(\FPDF::class);
@@ -20,12 +26,18 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
         error_reporting(E_ALL);
     }
 
+    /**
+     * Effettua la creazione di un oggetto prospetto ProspettoPDFLaureandoSimulazione
+     */
     public function testCreazioneProspettoPDFLaureandoSimulazione()
     {
         $prospetto = new ProspettoPDFLaureandoSimulazione($this->pdf, $this->matricola, $this->cdl, $this->dataLaurea);
         $this->assertInstanceOf(ProspettoPDFLaureandoSimulazione::class, $prospetto);
     }
 
+    /**
+     * Effettua la generazione di un ProspettoPDFLaureandoSimulazione
+     */
     public function testGeneraProspettoSimulazione()
     {
         $this->pdf->expects($this->once())
@@ -41,6 +53,11 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
         $prospetto->GeneraProspettoSimulazione();
     }
 
+    /**
+     * Effettua la generazione e il salvataggio di un ProspettoPDFLaureandoSimulazione
+     * 
+     * Nota: il test non usa un mock, verifica la presenza del file generato e lo elimina subito dopo
+     */
     public function testGenerazioneEffettivaFileSimulazione()
     {
         $pdf_reale = new FPDF();

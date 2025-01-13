@@ -5,12 +5,18 @@ use PHPMailer\PHPMailer\Exception as PHPMailerException;
 require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureando.php');
 require_once(__DIR__ . '/../../app/src/classes/GestioneInvioEmail.php');
 
+/**
+ * Insieme di test per la classe GestioneInvioEmail.
+ */
 class GestioneInvioEmailTest extends TestCase 
 {
     private GestioneInvioEmail $gestioneEmail;
     private CarrieraLaureando $carriera;
     private string $outputDir;
     
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void {
         $this->gestioneEmail = GestioneInvioEmail::getInstance();
         $this->carriera = new CarrieraLaureando(123456, "T. Ing. Informatica", "2023-12-31");
@@ -22,6 +28,19 @@ class GestioneInvioEmailTest extends TestCase
         }
     }
 
+    /**
+     * Testa il singleton della classe GestioneInvioEmail.
+     */
+    public function testSingleton()
+    {
+        $instance1 = GestioneInvioEmail::getInstance();
+        $instance2 = GestioneInvioEmail::getInstance();
+        $this->assertSame($instance1, $instance2);
+    }
+
+    /**
+     * Testa il metodo inviaEmailConProspetto.
+     */
     public function testInviaEmailConProspetto()
     {
         $pdf_path = $this->outputDir . "/test_prospetto.pdf";
@@ -46,6 +65,9 @@ class GestioneInvioEmailTest extends TestCase
         }
     }
 
+    /**
+     * Testa il metodo inviaEmailConProspetti.
+     */
     public function testInviaEmailConProspetti()
     {
         // Crea una directory per i prospetti di test
@@ -66,7 +88,7 @@ class GestioneInvioEmailTest extends TestCase
             $this->assertIsBool($result);
         } catch (PHPMailerException $e) {
             // Se il file non esiste o non è accessibile, il test fallisce
-            $this->fail("Impossibile inviare gli email: " . $e->getMessage());
+            $this->fail("Impossibile inviare le email: " . $e->getMessage());
         } finally {
             // Rimuovi il file temporaneo
             if (file_exists($pdf_path)) {

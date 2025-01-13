@@ -195,7 +195,6 @@ $results = $runner->runTests(__DIR__ . '/../tests');
     <?php endforeach; ?>
 
     <div class="execution-time">
-        Data e ora: <?= $results['dateTime'] ?> | 
         Tempo di esecuzione: <?= $results['executionTime'] ?> secondi
     </div>
 </body>

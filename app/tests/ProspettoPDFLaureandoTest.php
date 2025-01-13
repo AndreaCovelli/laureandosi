@@ -6,16 +6,6 @@ require_once(__DIR__ . '/../../app/src/classes/ProspettoPDFLaureando.php');
 
 /**
  * Insieme di test per la classe ProspettoPDFLaureando.
- * 
- * Requisiti:
- * - La libreria FPDF deve essere installata
- * - Permessi di scrittura nella directory di output
- * - Dati di test validi nella directory data/
- * 
- * I test verificano:
- * - Funzionalità di generazione PDF
- * - Formattazione corretta del contenuto
- * - Operazioni di salvataggio del file
  */
 class ProspettoPDFLaureandoTest extends TestCase
 {
@@ -24,7 +14,9 @@ class ProspettoPDFLaureandoTest extends TestCase
     private $cdl;
     private $dataLaurea;
 
-    // Inizializza i dati di test (viene eseguita prima di ogni test)
+    /**
+     *  Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $this->pdf = $this->createMock(\FPDF::class);
@@ -33,12 +25,18 @@ class ProspettoPDFLaureandoTest extends TestCase
         $this->dataLaurea = "2023-12-31";
     }
 
+    /**
+     * Effettua la creazione di un oggetto prospetto ProspettoPDFLaureando
+     */
     public function testCreazioneProspettoPDFLaureando()
     {
         $prospetto = new ProspettoPDFLaureando($this->pdf, $this->matricola, $this->cdl, $this->dataLaurea);
         $this->assertInstanceOf(ProspettoPDFLaureando::class, $prospetto);
     }
 
+    /**
+     * Effettua la generazione di un ProspettoPDFLaureando
+     */
     public function testGeneraProspetto()
     {
         $this->pdf->expects($this->once())
@@ -51,10 +49,12 @@ class ProspettoPDFLaureandoTest extends TestCase
         $prospetto->generaProspetto();
     }
 
+    /**
+     * Effettua il salvataggio di un ProspettoPDFLaureando
+     */
     public function testSalvaProspetto()
     {
         $outputDir = __DIR__ . '/output_test';
-        // print_r($outputDir);
         $filename = $outputDir . DIRECTORY_SEPARATOR . 'test';
         
         $this->pdf->expects($this->once())
@@ -65,6 +65,11 @@ class ProspettoPDFLaureandoTest extends TestCase
         $prospetto->salvaProspetto($filename);
     }
 
+    /**
+     * Effettua la generazione e il salvataggio di un ProspettoPDFLaureando
+     * 
+     * Nota: il test non usa un mock, verifica la presenza del file generato e lo elimina subito dopo
+     */
     public function testGenerazioneEffettivaFile()
     {
         // Usa una vera istanza di FPDF invece del mock

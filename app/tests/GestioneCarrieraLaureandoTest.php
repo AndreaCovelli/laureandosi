@@ -4,15 +4,34 @@ use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . '/../../app/src/classes/GestioneCarrieraLaureando.php');
 
+/**
+ * Insieme di test per la classe GestioneCarrieraLaureando.
+ */
 class GestioneCarrieraLaureandoTest extends TestCase 
 {
     private $gestioneCarriera;
 
+    /**
+     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     */
     protected function setUp(): void
     {
         $this->gestioneCarriera = GestioneCarrieraLaureando::getInstance();
     }
 
+    /**
+     * Testa il singleton della classe GestioneCarrieraLaureando.
+     */
+    public function testSingleton()
+    {
+        $instance1 = GestioneCarrieraLaureando::getInstance();
+        $instance2 = GestioneCarrieraLaureando::getInstance();
+        $this->assertSame($instance1, $instance2);
+    }
+
+    /**
+     * Testa il metodo RestituisciAnagraficaLaureando.
+     */
     public function testRestituisciAnagraficaLaureando()
     {
         // Esegue il metodo
@@ -32,8 +51,6 @@ class GestioneCarrieraLaureandoTest extends TestCase
         $this->assertArrayHasKey('cod_fis', $entry);
         $this->assertArrayHasKey('data_nascita', $entry);
         $this->assertArrayHasKey('email_ate', $entry);
-        // display the entry
-        // print_r($entry);
 
         // Verifica il tipo dei dati
         $this->assertIsString($entry['nome']);
@@ -43,6 +60,9 @@ class GestioneCarrieraLaureandoTest extends TestCase
         $this->assertIsString($entry['email_ate']);
     }
 
+    /**
+     * Testa il metodo RestituisciEsamiLaureando.
+     */
     public function testRestituisciEsamiLaureando()
     {
         // Esegue il metodo
