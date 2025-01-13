@@ -2,46 +2,39 @@
 
 ## Introduzione
 
-Il progetto **Laureandosi** è stato realizzato per l'esame di Ingegneria del Software.<br>
+Il progetto **Laureandosi** è stato realizzato per l'esame di Ingegneria del Software, A.A. 24/25.<br>
 Il progetto consiste nel realizzare il portale **Laureandosi** per la gestione dei prospetti di laurea.
+Per _gestione dei prospetti di laurea_ si intende la creazione e l'invio dei prospetti.
 Il linguaggio di programmazione utilizzato è **PHP** e il framework **WordPress**.
-Per realizzare il progetto è stato utilizzato il software **LocalWP**, un ambiente di sviluppo Wordpress. È stato inoltre fondamentale l'uso di **PHPunit** per la realizzazione dei test.
+Per realizzare il progetto è stato utilizzato il software **LocalWP**, un ambiente di sviluppo Wordpress.
+È stato inoltre fondamentale l'uso di **PHPunit** per la realizzazione dei test.
 
 ## Per Iniziare
 
 1. Questo progetto è configurato utilizzando LocalWP per lo sviluppo WordPress
 2. Segui le istruzioni di installazione per LocalWP
-3. Aggiungi la cartella lib contenente le librerie FPDF e PHPMailer all'interno di app/public
+3. Aggiungi la cartella lib contenente le librerie FPDF e PHPMailer all'interno della cartella `app` creata da LocalWP
 
 ## Requisiti
 
 - LocalWP (https://localwp.com/)
-- Libreria FPDF
-- Libreria PHPMailer
+- Libreria FPDF (fornita dal professore)
+- Libreria PHPMailer (fornita dal professore)
 
 ## Installazione
 
-1. Sovrascrivi la cartella `app/public` con quella presente nel repository
-2. Modifica il file `nginx.conf.hbs` inserendo il seguente codice:
+1. Apri LocalWP, clicca su **+** e seleziona _Select an existing ZIP_, come mostrato nell'immagine seguente:
 
-```bash
-    # Allow directory listing for output folder
-	# server per poter accedere ai file generati da PHP in output
-    location ^~ /output/ {
-        autoindex on;
-        autoindex_exact_size off;
-        autoindex_localtime on;
-    }
-```
+![LocalWP](importa_sito.png)
 
 3. Installa PHPunit
 
 - Installare php dal seguente link: https://windows.php.net/download/ (x64 Non Thread Safe)
 - Installare composer dal seguente link: https://getcomposer.org/Composer-Setup.exe
-- Per installare php-unit dare il seguente comando nella cartella del progetto (all'interno di `\src`):
+- Per installare php-unit dare il seguente comando nella cartella del progetto (all'interno di `src/`):
 
-```bash
-composer require --dev phpunit/phpunit:^9.0
+```pwsh
+composer require --dev phpunit/phpunit
 ```
 
 ## Configurazione
@@ -141,7 +134,7 @@ Ciascun campo ha il seguente significato:
 - `degree_programs`: contiene i programmi di laurea
 - `formula`: formula per il calcolo dei crediti e della media
 - `required_cfu`: cfu richiesti per la laurea
-- `parameters`: parametri della formula
+- `parameters`: parametri della formula, diviso per `par-T` e `par-C`, ciascuno con i seguenti campi:
     - `min`: valore minimo
     - `max`: valore massimo
     - `step`: passo
@@ -240,7 +233,18 @@ Per questa operazione aver già effettuato la *Crea Prospetto*. I passaggi da se
 2. Attendere il completamento dell'operazione al termine della quale comparirà un messaggio di conferma
 
 ## Testing
+Una volta installato PHPunit, verificare che sia presente il file `phpunit.xml` all'interno di `app/`
+Dopodichè è possibile eseguire i test.
 
-Per eseguire i test, è sufficiente visitare la pagina `http://laureandosi.local/tests.php`. Nella pagina verranno visualizzati i risultati dei test, come mostrato nell'immagine seguente:
+Vanno seguiti i seguenti passaggi:
+1. Aprire il terminale nella cartella del progetto (all'interno di `app/`) e dare il seguente comando:
+
+```pwsh
+./vendor/bin/phpunit
+```
+
+Il comando eseguirà tutti i test e creerà all'interno della cartella `app/public` un file `tests_results.html` contenente i risultati dei test.
+2. Per vedere i risultati, è sufficiente visitare la pagina `http://laureandosi.local/tests_results.html`.
+Nella pagina verranno visualizzati i risultati dei test, come mostrato nell'immagine seguente (esempio):
 
 ![Test](app/tests/image.png)

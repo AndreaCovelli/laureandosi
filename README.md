@@ -6,7 +6,8 @@ Progetto realizzato per l'esame di Ingegneria del Software.<br>
 ![Laureandosi](image.png)
 Il progetto consiste nel realizzare il portale **Laureandosi** per la gestione dei prospetti di laurea.
 Il linguaggio di programmazione utilizzato è **PHP** e il framework **WordPress**.
-Per realizzare il progetto è stato utilizzato il software **LocalWP**. È stato inoltre fondamentale l'uso di PHPunit per la realizzazione dei test.
+Per realizzare il progetto è stato utilizzato il software **LocalWP**.
+È stato inoltre fondamentale l'uso di PHPunit per la realizzazione dei test.
 
 ## Per Iniziare
 1. Questo progetto è configurato utilizzando LocalWP per lo sviluppo WordPress
@@ -21,23 +22,33 @@ Per realizzare il progetto è stato utilizzato il software **LocalWP**. È stato
 ## Installazione
 1. Clona questo repository
 2. Apri con LocalWP il progetto
-3. Aggiungi la cartella lib contenente le librerie FPDF e PHPMailer all'interno di app/public
+3. Aggiungi la cartella `lib` contenente le librerie FPDF e PHPMailer all'interno di `app/`
 3. Avvia il server locale
 
 ## Installazione PHPunit
 
 - Installare php dal seguente link: https://windows.php.net/download/ (x64 Non Thread Safe)
 - Installare composer dal seguente link: https://getcomposer.org/Composer-Setup.exe
-- Per installare php-unit dare il seguente comando nella cartella del progetto (all'interno di `\src`):
+- Per installare php-unit dare il seguente comando nella cartella del progetto (all'interno di `src/`):
 
-```bash
-composer require --dev phpunit/phpunit:^9.0
+```pwsh
+composer require --dev phpunit/phpunit
 ```
 
-Nota: è importante installare la versione 9.0 di phpunit per evitare errori di compatibilità con LocalWP.
-
 ## Testing
-Per eseguire i test, è sufficiente visitare la pagina `http://laureandosi.local/src/tests.php`. Nella pagina verranno visualizzati i risultati dei test come in figura:
+Una volta installato PHPunit, verificare che sia presente il file `phpunit.xml` all'interno di `app/`
+Dopodichè è possibile eseguire i test.
+
+Vanno seguiti i seguenti passaggi:
+1. Aprire il terminale nella cartella del progetto (all'interno di `app/`) e dare il seguente comando:
+
+```pwsh
+./vendor/bin/phpunit
+```
+
+Il comando eseguirà tutti i test e creerà all'interno della cartella `app/public` un file `tests_results.html` contenente i risultati dei test.
+2. Per vedere i risultati, è sufficiente visitare la pagina `http://laureandosi.local/tests_results.html`.
+Nella pagina verranno visualizzati i risultati dei test, come mostrato nell'immagine seguente (esempio):
 
 ![Test](app/tests/image.png)
 

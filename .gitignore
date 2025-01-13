@@ -15,18 +15,18 @@
 !/app/src/**
 !/app/tests/**
 !/app/public/index.php
-!/app/public/tests.php
 !/app/public/styles.css
-!/app/public/tests_styles.css
+!/app/public/tests_results.html
+!/app/phpunit.xml
+!/app/composer.json
+
 
 # Allow nginx configuration
 !/conf/nginx/site.conf.hbs
 
-# Allow composer configuration
-!/composer.json
-
 # Allow the presentation image
 !image.png
+!importa_sito.png
 
 # Not allow vendor directory
 /app/public/src/vendor/**
