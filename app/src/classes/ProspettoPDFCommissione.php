@@ -36,14 +36,36 @@ class ProspettoPDFCommissione extends Prospetto{
     }
 
     /**
+     * Calcola l'anno accademico a partire dalla data di laurea
+     * L'anno accademico inizia a settembre e finisce ad agosto dell'anno successivo
+     * Per esempio: settembre 2024 - agosto 2025 è l'anno accademico 2024/2025
+     * 
+     * @return string Anno accademico
+     */
+    public function calcolaAnnoAccademico(): string {
+        $data = new DateTime($this->data_laurea);
+        $anno = (int)$data->format('Y');
+        $mese = (int)$data->format('n');
+        
+        // Se il mese è da settembre a dicembre, l'anno accademico inizia nell'anno corrente
+        // Se il mese è da gennaio ad agosto, l'anno accademico è iniziato l'anno precedente
+        $annoInizio = ($mese >= 9) ? $anno : $anno - 1;
+        $annoFine = $annoInizio + 1;
+        
+        return $annoInizio . '-' . $annoFine;
+    }
+
+    /**
      * Restituisce la directory di output per i prospetti
-     * @return string
+     * @return string Percorso della directory di output
      */
     public function getOutputDir(): string {
         $base_dir = dirname(dirname(__DIR__)) . '/public/output';
         $safe_cdl = str_replace(' ', '_', $this->cdl);
         $safe_date = str_replace('-', '_', $this->data_laurea);
-        return $base_dir . '/' . $safe_cdl . '/' . $safe_date;
+        $anno_accademico = $this->calcolaAnnoAccademico();
+
+        return $base_dir . '/' . $safe_cdl . '/' . $anno_accademico . '/' . $safe_date;
     }
 
     /**

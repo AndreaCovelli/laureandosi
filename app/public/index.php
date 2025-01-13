@@ -18,31 +18,38 @@ $form_values = [
     'cdl' => '',
     'date' => ''
 ];
+
 // Controlla se il form è stato inviato
-if (isset($_GET['create']) || isset($_GET['send'])) {
+if (isset($_POST['create']) || isset($_POST['send'])) {
     $form_values = [
-        'matricole' => $_GET['matricole'],
-        'cdl' => $_GET['cdl'],
-        'date' => $_GET['date']
+        'matricole' => $_POST['matricole'],
+        'cdl' => $_POST['cdl'],
+        'date' => $_POST['date']
     ];
 
-    $matricole_string = $_GET['matricole'];
+    $matricole_string = $_POST['matricole'];
     $matricole_array = array_map('trim', explode(',', $matricole_string));
-    $cdl = $_GET['cdl'];
-    $data_laurea = $_GET['date'];
-    // Check if the form is valid
+    $cdl = $_POST['cdl'];
+    $data_laurea = $_POST['date'];
+    // Controlla che i campi siano stati compilati
     if (!empty($matricole_array) && $cdl != "Seleziona un CdL" && !empty($data_laurea)) {
         $pdf = new FPDF();
         $prospetto = new ProspettoPDFCommissione($pdf, $matricole_array, $cdl, $data_laurea);
         
-        if (isset($_GET['create'])) {
-            $prospetto->generaProspetto();
-            $safe_cdl = str_replace(' ', '_', $cdl);
-            $safe_date = str_replace('-', '_', $data_laurea);
-            $_SESSION['prospetti_generati'] = true;
-            $_SESSION['output_path'] = '/output/' . $safe_cdl . '/' . $safe_date;
-            $_SESSION['create_success'] = true;
-        } elseif (isset($_GET['send'])) {
+        if (isset($_POST['create'])) {
+            try {
+                $prospetto->generaProspetto();
+                $success = true;
+                $safe_cdl = str_replace(' ', '_', $cdl);
+                $safe_date = str_replace('-', '_', $data_laurea);
+                $_SESSION['prospetti_generati'] = $success;
+                $anno_accademico = $prospetto->calcolaAnnoAccademico();
+                $_SESSION['output_path'] =  '/output/' . $safe_cdl . '/' . $anno_accademico . '/' . $safe_date;
+                $_SESSION['create_success'] = true;
+            } catch (Exception $e) {
+                $_SESSION['create_success'] = false;
+            }
+        } elseif (isset($_POST['send'])) {
             $success = $prospetto->inviaProspettiLaureandi();
             $_SESSION['email_sent'] = $success;
         }
@@ -61,7 +68,7 @@ if (isset($_GET['create']) || isset($_GET['send'])) {
 <body>
 <div class="container">
     <h1>Gestione Prospetti di Laurea</h1>
-    <form class="form" method="get">
+    <form class="form" method="post">
         <div class="left-column">
             <label for="cdl">CdL:</label>
             <select id="cdl" name="cdl">
@@ -81,13 +88,13 @@ if (isset($_GET['create']) || isset($_GET['send'])) {
         <div class="right-column">
             <label></label>
             <button class="btn" type="submit" name="create">Crea Prospetti</button>
-            <button class="btn-link" type="submit" name="open" <?php echo !isset($_SESSION['prospetti_generati']) ? 'disabled' : ''; ?>>
+            <button id="openProspetti" class="btn-link" onclick="<?php echo !isset($_SESSION['prospetti_generati']) ? 'disabled' : ''; ?>">
                 apri prospetti
             </button>
             <button class="btn" type="submit" name="send">Invia Prospetti</button>
             <?php if (isset($_SESSION['create_success'])): ?>
-                <div class="alert success">
-                    Prospetti creati con successo!
+                <div class="alert <?php echo $_SESSION['create_success'] ? 'success' : 'error'; ?>">
+                    <?php echo $_SESSION['create_success'] ? 'Prospetti creati con successo!' : 'Errore nella creazione dei prospetti'; ?>
                 </div>
             <?php endif; ?>
             <?php if (isset($_SESSION['email_sent'])): ?>
@@ -101,33 +108,32 @@ if (isset($_GET['create']) || isset($_GET['send'])) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Gestiamo l'apertura dei prospetti
+    const openBtn = document.getElementById('openProspetti');
+
     <?php if (isset($_SESSION['prospetti_generati']) && $_SESSION['prospetti_generati']): ?>
-    const openBtn = document.querySelector('button[name="open"]');
-    const outputPath = '<?php echo $_SESSION['output_path']; ?>';
-    openBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Apri il prospetto della commissione in una nuova scheda
-        window.open(outputPath + '/prospetto_commissione.pdf', '_blank');
-        // Apri la cartella con i tutti i prospetti generati
-        window.open(outputPath, '_blank');
-    });
+        const outputPath = '<?php echo $_SESSION['output_path']; ?>';
+
+        openBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Apri il prospetto della commissione in una nuova scheda
+            window.open(outputPath + '/prospetto_commissione.pdf', '_blank');
+            // Apri la cartella con i tutti i prospetti generati
+            window.open(outputPath, '_blank');
+        });
     <?php endif; ?>
 
+    const clearAlert = () => {
+        const alertDiv = document.querySelector('.alert');
+        if (alertDiv) alertDiv.style.display = 'none';
+    };
+
     // Aggiungi event listener to clear message when CdL changes
-    document.getElementById('cdl').addEventListener('change', function() {
-        const alertDiv = document.querySelector('.alert');
-        if (alertDiv) alertDiv.style.display = 'none';
-    });
-    // Aggiungi event listeners to clear message when date changes
-    document.getElementById('date').addEventListener('change', function() {
-        const alertDiv = document.querySelector('.alert');
-        if (alertDiv) alertDiv.style.display = 'none';
-    });
-    // Aggiungi event listeners to clear message when matricole changes
-    document.getElementById('matricole').addEventListener('input', function() {
-        const alertDiv = document.querySelector('.alert');
-        if (alertDiv) alertDiv.style.display = 'none';
-    });
+    document.getElementById('cdl').addEventListener('change', clearAlert);
+    // Aggiungi event listener to clear message when date changes
+    document.getElementById('date').addEventListener('change', clearAlert);
+    // Aggiungi event listener to clear message when matricole changes
+    document.getElementById('matricole').addEventListener('input', clearAlert);
 
     // Pre-fill form values
     document.getElementById('matricole').value = '<?php echo htmlspecialchars($form_values['matricole']); ?>';
@@ -139,16 +145,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 <!-- 
-    nota che per far funzionare window.open('/output/', '_blank');
-    è stato aggiunto
+    Nota che per far funzionare window.open('/output/', '_blank');
+    è stato aggiunto:
+
     # Allow directory listing for output folder
         location ^~ /output/ {
             autoindex on;
             autoindex_exact_size off;
             autoindex_localtime on;
         }
-    in site.conf.hbs di nginx del local site
-    prima di
+
+    in site.conf.hbs di nginx del local site.
+    Prima di:
+
      #
      # PHP-FPM
      #
