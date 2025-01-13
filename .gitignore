@@ -3,6 +3,7 @@
 
 # Allow git files
 !readme.md
+!manuale.md
 !.gitignore
 .idea/.gitignore
 
@@ -32,4 +33,4 @@
 **/*/readme.md
 tree.txt
 repomix-output.txt
-app/vendor/sebastian/version/.gitignore
+**/vendor/**/.gitignore
