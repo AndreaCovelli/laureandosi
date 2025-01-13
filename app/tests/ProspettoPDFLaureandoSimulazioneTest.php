@@ -1,7 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\ProspettoPDFLaureandoSimulazione.php');
+
+require_once(__DIR__ . '/../../app/src/classes/ProspettoPDFLaureandoSimulazione.php');
 
 class ProspettoPDFLaureandoSimulazioneTest extends TestCase
 {
@@ -43,7 +44,7 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
     public function testGenerazioneEffettivaFileSimulazione()
     {
         $pdf_reale = new FPDF();
-        $outputDir = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'output';
+        $outputDir = __DIR__ . '/output_test';
         $filename = $outputDir . DIRECTORY_SEPARATOR . 'test_simulazione';
         
         $prospetto = new ProspettoPDFLaureandoSimulazione($pdf_reale, $this->matricola, $this->cdl, $this->dataLaurea);
@@ -51,5 +52,10 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
         $prospetto->salvaProspetto($filename);
         
         $this->assertFileExists($filename . '.pdf');
+
+        // Pulizia dopo il test
+        if (file_exists($filename . '.pdf')){
+            unlink($filename . '.pdf');
+        }
     }
 }

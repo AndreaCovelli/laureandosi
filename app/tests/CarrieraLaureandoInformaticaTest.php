@@ -1,9 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\CarrieraLaureando.php');
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\CarrieraLaureandoInformatica.php');
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraLaureando.php');
+require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureando.php');
+require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureandoInformatica.php');
+require_once(__DIR__ . '/../../app/src/classes/GestioneCarrieraLaureando.php');
 
 class CarrieraLaureandoInformaticaTest extends TestCase
 {
@@ -29,14 +29,14 @@ class CarrieraLaureandoInformaticaTest extends TestCase
 
     public function testCalcolaBonusInCorso()
     {
-        // Studente immatricolato nel 2016, si laurea nel 2020 (in corso)
+        // Laureando immatricolato nel 2016, si laurea nel 2020 entro il 31 maggio (in corso)
         $carrieraInCorso = new CarrieraLaureandoInformatica(123456, "T. Ing. Informatica", "2020-05-22");
         $this->assertTrue($carrieraInCorso->getBonus());
     }
 
     public function testCalcolaBonusFuoriCorso()
     {
-        // Studente immatricolato nel 2016, si laurea nel 2023 (fuori corso)
+        // Laureando immatricolato nel 2016, si laurea nel 2023 (fuori corso)
         $carrieraFuoriCorso = new CarrieraLaureandoInformatica(123456, "T. Ing. Informatica", "2023-10-01");
         $this->assertFalse($carrieraFuoriCorso->getBonus());
     }
@@ -61,7 +61,7 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         }
 
         // Rimuove l'esame più basso
-        $carriera->rimuoviEsamePiuBasso();
+        $carriera->escludiEsamePiuBassoDallaMedia();
         
         // Conta quanti esami sono inclusi nella media dopo la rimozione
         $countDopo = 0;

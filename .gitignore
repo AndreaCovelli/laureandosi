@@ -11,9 +11,12 @@
 
 # Allow specific project files and directories
 !/app/public/output/**
-!/app/public/src/**
+!/app/src/**
+!/app/tests/**
 !/app/public/index.php
+!/app/public/tests.php
 !/app/public/styles.css
+!/app/public/tests_styles.css
 
 # Allow nginx configuration
 !/conf/nginx/site.conf.hbs
@@ -29,3 +32,4 @@
 **/*/readme.md
 tree.txt
 repomix-output.txt
+app/vendor/sebastian/version/.gitignore

@@ -1,7 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraLaureando.php');
+
+require_once(__DIR__ . '/../../app/src/classes/GestioneCarrieraLaureando.php');
 
 class GestioneCarrieraLaureandoTest extends TestCase 
 {

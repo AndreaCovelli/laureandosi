@@ -1,8 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\CarrieraLaureando.php');
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\GestioneCarrieraLaureando.php');
+require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureando.php');
+require_once(__DIR__ . '/../../app/src/classes/GestioneCarrieraLaureando.php');
 
 class CarrieraLaureandoTest extends TestCase 
 {
@@ -15,7 +15,7 @@ class CarrieraLaureandoTest extends TestCase
         $this->carriera = new CarrieraLaureando($matricola, $CdL, "2023-10-01");
     }
 
-    public function testAnagraficaStudente()
+    public function testAnagraficaLaurendo()
     {
         $this->assertEquals(123456, $this->carriera->getMatricola());
         $this->assertEquals("GIANLUIGI", $this->carriera->getNome());

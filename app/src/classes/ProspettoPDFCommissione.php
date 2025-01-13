@@ -40,7 +40,7 @@ class ProspettoPDFCommissione extends Prospetto{
      * @return string
      */
     public function getOutputDir(): string {
-        $base_dir = dirname(dirname(__DIR__)) . '/output';
+        $base_dir = dirname(dirname(__DIR__)) . '/public/output';
         $safe_cdl = str_replace(' ', '_', $this->cdl);
         $safe_date = str_replace('-', '_', $this->data_laurea);
         return $base_dir . '/' . $safe_cdl . '/' . $safe_date;

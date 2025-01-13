@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 class TestRunner {
     private array $results;
@@ -104,7 +104,7 @@ class TestRunner {
 }
 
 $runner = new TestRunner();
-$results = $runner->runTests(__DIR__ . '/tests');
+$results = $runner->runTests(__DIR__ . '/../tests');
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +113,7 @@ $results = $runner->runTests(__DIR__ . '/tests');
     <meta charset="UTF-8">
     <title>Risultati Test PHPUnit</title>
     <style>
-        <?php include 'styles.css'; ?>
+        <?php include 'tests_styles.css'; ?>
     </style>
 </head>
 <body>

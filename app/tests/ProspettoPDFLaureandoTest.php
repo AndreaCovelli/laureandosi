@@ -1,8 +1,22 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\ProspettoPDFLaureando.php');
 
+require_once(__DIR__ . '/../../app/src/classes/ProspettoPDFLaureando.php');
+
+/**
+ * Insieme di test per la classe ProspettoPDFLaureando.
+ * 
+ * Requisiti:
+ * - La libreria FPDF deve essere installata
+ * - Permessi di scrittura nella directory di output
+ * - Dati di test validi nella directory data/
+ * 
+ * I test verificano:
+ * - Funzionalità di generazione PDF
+ * - Formattazione corretta del contenuto
+ * - Operazioni di salvataggio del file
+ */
 class ProspettoPDFLaureandoTest extends TestCase
 {
     private $pdf;
@@ -10,6 +24,7 @@ class ProspettoPDFLaureandoTest extends TestCase
     private $cdl;
     private $dataLaurea;
 
+    // Inizializza i dati di test (viene eseguita prima di ogni test)
     protected function setUp(): void
     {
         $this->pdf = $this->createMock(\FPDF::class);
@@ -38,7 +53,7 @@ class ProspettoPDFLaureandoTest extends TestCase
 
     public function testSalvaProspetto()
     {
-        $outputDir = realpath(dirname(__FILE__)) . '\..\output';
+        $outputDir = __DIR__ . '/output_test';
         // print_r($outputDir);
         $filename = $outputDir . DIRECTORY_SEPARATOR . 'test';
         
@@ -54,7 +69,7 @@ class ProspettoPDFLaureandoTest extends TestCase
     {
         // Usa una vera istanza di FPDF invece del mock
         $pdf_reale = new FPDF();
-        $outputDir = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'output';
+        $outputDir = __DIR__ . '/output_test';
         $filename = $outputDir . DIRECTORY_SEPARATOR . 'test';
         
         $prospetto = new ProspettoPDFLaureando($pdf_reale, $this->matricola, $this->cdl, $this->dataLaurea);
@@ -64,8 +79,8 @@ class ProspettoPDFLaureandoTest extends TestCase
         $this->assertFileExists($filename . '.pdf');
         
         // Pulizia dopo il test
-        //if (file_exists($filename . '.pdf')) {
-        //    unlink($filename . '.pdf');
-        //}
+        if (file_exists($filename . '.pdf')){
+            unlink($filename . '.pdf');
+        }
     }
 }

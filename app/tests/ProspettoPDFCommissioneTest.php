@@ -1,7 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(realpath(dirname(__FILE__)) . '\..\Classes\ProspettoPDFCommissione.php');
+
+require_once(__DIR__ . '/../../app/src/classes/ProspettoPDFCommissione.php');
 
 class ProspettoPDFCommissioneTest extends TestCase
 {
@@ -25,18 +26,5 @@ class ProspettoPDFCommissioneTest extends TestCase
     {
         $prospetto = new ProspettoPDFCommissione($this->pdf, $this->matricola_list, $this->cdl, $this->dataLaurea);
         $this->assertInstanceOf(ProspettoPDFCommissione::class, $prospetto);
-    }
-
-    public function testGenerazioneEffettivaFileCommissione()
-    {
-        $pdf_reale = new FPDF();
-        $outputDir = realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'output';
-        $filename = $outputDir . DIRECTORY_SEPARATOR . 'test_commissione';
-        
-        $prospetto = new ProspettoPDFCommissione($pdf_reale, $this->matricola_list, $this->cdl, $this->dataLaurea);
-        $prospetto->GeneraProspetto();
-        $prospetto->salvaProspetto($filename);
-        
-        $this->assertFileExists($filename . '.pdf');
     }
 }

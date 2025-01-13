@@ -1,5 +1,6 @@
 <?php
-require('C:\Users\Andco\Local Sites\laureandosi\app\public\lib\fpdf184\fpdf.php');
+
+require_once(__DIR__ . '/../../app/lib/fpdf184/fpdf.php');
 
 class StudentReport extends FPDF {
     function Header() {

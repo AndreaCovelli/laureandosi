@@ -2,12 +2,15 @@
 session_start(); // Inizializza la sessione
 session_unset();  // Cancella tutte le variabili di sessione
 const WP_USE_THEMES = true;
-require_once('src/Classes/ProspettoPDFCommissione.php');
-require_once('src/Classes/GestioneInvioEmail.php');
+
+define('OUTPUT_PATH', dirname(__DIR__) . '/public/output');
+
+require_once(dirname(__DIR__) . '/src/classes/ProspettoPDFCommissione.php');
+require_once(dirname(__DIR__) . '/src/classes/GestioneInvioEmail.php');
 
 $output_dir = __DIR__ . '/output';
-if (!file_exists($output_dir)) {
-    mkdir($output_dir, 0777, true); // mode 0777 viene ignorata su Windows
+if (!file_exists(OUTPUT_PATH)) {
+    mkdir(OUTPUT_PATH, 0777, true); // mode 0777 viene ignorata su Windows
 }
 
 $form_values = [

@@ -1,6 +1,6 @@
 <?php
 
-require_once(realpath(dirname(__FILE__)) . "/../../lib/fpdf184/fpdf.php");
+require_once(dirname(dirname(__DIR__)) . '/lib/fpdf184/fpdf.php');
 require_once(realpath(dirname(__FILE__)) . "/Prospetto.php");
 require_once(realpath(dirname(__FILE__)) . "/CarrieraLaureando.php");
 require_once(realpath(dirname(__FILE__)) . "/CarrieraLaureandoInformatica.php");

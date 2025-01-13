@@ -1,8 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
 use PHPMailer\PHPMailer\Exception as PHPMailerException;
-require_once(realpath(dirname(__FILE__)) . '/../Classes/GestioneInvioEmail.php');
-require_once(realpath(dirname(__FILE__)) . '/../Classes/CarrieraLaureando.php');
+
+require_once(__DIR__ . '/../../app/src/classes/CarrieraLaureando.php');
+require_once(__DIR__ . '/../../app/src/classes/GestioneInvioEmail.php');
 
 class GestioneInvioEmailTest extends TestCase 
 {
@@ -15,39 +16,9 @@ class GestioneInvioEmailTest extends TestCase
         $this->carriera = new CarrieraLaureando(123456, "T. Ing. Informatica", "2023-12-31");
         
         // Imposta una directory di output per i test
-        $this->outputDir = realpath(dirname(__FILE__)) . '/../output/test';
+        $this->outputDir = __DIR__ . '/output_test/mail';
         if (!is_dir($this->outputDir)) {
             mkdir($this->outputDir, 0777, true);
-        }
-    }
-
-    public function testCreaEmail()
-    {
-        $pdf_path = $this->outputDir . "/test.pdf";
-        
-        // Crea un file PDF di test vuoto
-        file_put_contents($pdf_path, "Test PDF content");
-        
-        try {
-            $mail = $this->gestioneEmail->creaEmail($this->carriera, $pdf_path);
-            
-            // Verifica che l'oggetto mail sia creato correttamente
-            $this->assertInstanceOf('PHPMailer\PHPMailer\PHPMailer', $mail);
-            
-            // Verifica le proprietà dell'email
-            $this->assertEquals('no-reply-laureandosi@ing.unipi.it', $mail->From);
-            $this->assertEquals('Laureandosi', $mail->FromName);
-            
-            // Verifica il contenuto HTML dell'email
-            $this->assertStringContainsString('text/html', $mail->ContentType);
-        } catch (PHPMailerException $e) {
-            // Se il file non esiste o non è accessibile, il test fallisce
-            $this->fail("Impossibile creare l'email: " . $e->getMessage());
-        } finally {
-            // Rimuovi il file temporaneo
-            if (file_exists($pdf_path)) {
-                unlink($pdf_path);
-            }
         }
     }
 

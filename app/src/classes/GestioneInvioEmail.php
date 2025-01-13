@@ -2,6 +2,7 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 require_once(dirname(dirname(__DIR__)) . '/lib/PHPMailer/src/PHPMailer.php');
 require_once(dirname(dirname(__DIR__)) . '/lib/PHPMailer/src/SMTP.php');
 require_once(dirname(dirname(__DIR__)) . '/lib/PHPMailer/src/Exception.php');
