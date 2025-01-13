@@ -36,7 +36,7 @@ composer require --dev phpunit/phpunit
 ```
 
 ## Testing
-Una volta installato PHPunit, verificare che sia presente il file `phpunit.xml` all'interno di `app/`
+Una volta installato PHPunit, verificare che sia presente il file `phpunit.xml` all'interno di `app/`.
 Dopodichè è possibile eseguire i test.
 
 Vanno seguiti i seguenti passaggi:

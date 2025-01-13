@@ -73,10 +73,10 @@ if (isset($_POST['create']) || isset($_POST['send'])) {
             <label for="cdl">CdL:</label>
             <select id="cdl" name="cdl">
                 <option value="">Seleziona un CdL</option>
-                <option value="T. Ing. Informatica">T. Ing. Informatica</option>
-                <option value="M. Ing. Elettronica">M. Ing. Elettronica</option>
-                <option value="M. Ing. delle Telecomunicazioni">M. Ing. delle Telecomunicazioni</option>
-                <option value="M. Cybersecurity">M. Cybersecurity</option>
+                <option value="T. Ing. Informatica">Triennale Ingegneria Informatica</option>
+                <option value="M. Ing. Elettronica">Magistrale Ingegneria Elettronica</option>
+                <option value="M. Ing. Telecomunicazioni">Magistrale Ingegneria delle Telecomunicazioni</option>
+                <option value="M. Cybersecurity">Magistrale Cybersecurity</option>
             </select>
             <label for="date">Data Laurea:</label>
             <input type="date" id="date" name="date">
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         openBtn.addEventListener('click', function(e) {
             e.preventDefault();
             // Apri il prospetto della commissione in una nuova scheda
-            window.open(outputPath + '/prospetto_commissione.pdf', '_blank');
+            // window.open(outputPath + '/prospetto_commissione.pdf', '_blank');
             // Apri la cartella con i tutti i prospetti generati
             window.open(outputPath, '_blank');
         });

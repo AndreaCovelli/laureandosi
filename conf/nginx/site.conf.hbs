@@ -63,7 +63,8 @@ server {
         # allow CORS requests
         add_header        Access-Control-Allow-Origin *;
     }
-
+	
+	############################################
     # Allow directory listing for output folder
 	# Serve per poter accedere dal browser ai file generati da PHP in output
     location ^~ /output/ {
@@ -71,6 +72,7 @@ server {
         autoindex_exact_size off;
         autoindex_localtime on;
     }
+	############################################
 
     #
     # PHP-FPM

@@ -233,7 +233,7 @@ Per questa operazione aver già effettuato la *Crea Prospetto*. I passaggi da se
 2. Attendere il completamento dell'operazione al termine della quale comparirà un messaggio di conferma
 
 ## Testing
-Una volta installato PHPunit, verificare che sia presente il file `phpunit.xml` all'interno di `app/`
+Una volta installato PHPunit, verificare che sia presente il file `phpunit.xml` all'interno di `app/`.
 Dopodichè è possibile eseguire i test.
 
 Vanno seguiti i seguenti passaggi:

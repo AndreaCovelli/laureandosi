@@ -123,9 +123,17 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
         // Aggiungi nota informativa
         $this->pdf->Ln(5);
         $informazioni = $isVotoTesi ? 
-            "Scegli il voto di tesi, prendi il corrispondente voto di laurea ed arrotonda." :
-            "Scegli il voto commissione, prendi il corrispondente voto di laurea ed arrotonda.";
+            "Scegli il voto di tesi, prendi il corrispondente voto di laurea" :
+            "Scegli il voto commissione, prendi il corrispondente voto di laurea";
+
+        // Aggiungi descrizione per un laureando della Triennale di Ingegneria Informatica
+        if ($this->carriera_laureando->getCdL() === "T. Ing. Informatica") {
+            $informazioni .= " e somma il voto di tesi tra 1 e 3, quindi arrotonda.";
+        }else{
+            $informazioni .= " ed arrotonda.";
+        }
+
         $this->pdf->SetFontSize(10);
-        $this->pdf->Cell(0, 5, "VOTO DI LAUREA FINALE: " . $informazioni, 0, 1, 'L');
+        $this->pdf->MultiCell(0, 5, "VOTO DI LAUREA FINALE: " . $informazioni);
     }
 }
