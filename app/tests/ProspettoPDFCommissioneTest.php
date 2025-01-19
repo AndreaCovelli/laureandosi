@@ -48,7 +48,7 @@ class ProspettoPDFCommissioneTest extends TestCase
         $output_dir = $prospetto->getOutputDir();
         
         // Verifichiamo che il percorso contenga il CdL e la data formattati correttamente
-        $safe_cdl = str_replace(' ', '_', $this->cdl);
+        $safe_cdl = str_replace('. ', '_', $this->cdl);
         $safe_date = str_replace('-', '_', $this->dataLaurea);
         
         $this->assertStringContainsString($safe_cdl, $output_dir);

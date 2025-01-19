@@ -46,8 +46,8 @@ Vanno seguiti i seguenti passaggi:
 ./vendor/bin/phpunit
 ```
 
-Il comando eseguirà tutti i test e creerà all'interno della cartella `app/public` un file `tests_results.html` contenente i risultati dei test.
-2. Per vedere i risultati, è sufficiente visitare la pagina `http://laureandosi.local/tests_results.html`.
+Il comando eseguirà tutti i test e creerà all'interno della cartella `app/public` un file `tests_results.php` contenente i risultati dei test.
+2. Per vedere i risultati, è sufficiente visitare la pagina `http://laureandosi.local/test_result.php`.
 Nella pagina verranno visualizzati i risultati dei test, come mostrato nell'immagine seguente (esempio):
 
 ![Test](app/tests/image.png)

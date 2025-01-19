@@ -61,7 +61,7 @@ class ProspettoPDFCommissione extends Prospetto{
      */
     public function getOutputDir(): string {
         $base_dir = dirname(dirname(__DIR__)) . '/public/output';
-        $safe_cdl = str_replace(' ', '_', $this->cdl);
+        $safe_cdl = str_replace('. ', '_', $this->cdl);
         $safe_date = str_replace('-', '_', $this->data_laurea);
         $anno_accademico = $this->calcolaAnnoAccademico();
 

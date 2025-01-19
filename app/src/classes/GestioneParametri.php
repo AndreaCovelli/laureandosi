@@ -54,4 +54,23 @@ class GestioneParametri {
         $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."filtro_esami.json");
         return json_decode($string, true);
     }
+
+    /**
+     * Verifica se un corso di laurea è supportato dal sistema
+     * @param string $corso Il codice del corso di laurea
+     * @return bool
+     */
+    public function isCorsoSupportato(string $corso): bool {
+        $parametri = $this->RestituisciParametriCdl();
+        return isset($parametri['degree_programs'][$corso]);
+    }
+
+    /**
+     * Restituisce l'array dei corsi di laurea supportati dal sistema
+     * @return array
+     */
+    public function getCorsiSupportati(): array {
+        $parametri = $this->RestituisciParametriCdl();
+        return array_keys($parametri['degree_programs']);
+    }
 }

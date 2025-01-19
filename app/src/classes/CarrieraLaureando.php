@@ -25,6 +25,12 @@ class CarrieraLaureando
     public function __construct(int $matricola, string $cdL, string $dataLaurea) {
         // Recupero i dati da GestioneParametri per la formula di calcolo del voto di laurea
         $gestioneParametri = GestioneParametri::getInstance();
+
+        // Verifica se il corso di laurea è supportato dal sistema
+        if (!$gestioneParametri->isCorsoSupportato($cdL)) {
+            throw new InvalidArgumentException("Corso di laurea non supportato: " . $cdL);
+        }
+
         $this->formulaVotoLaurea = $gestioneParametri->RestituisciParametriCdl()["degree_programs"][$cdL]["formula"];
 
         // Recupero i dati da GestioneCarrieraLaureando per l'anagrafica e la carriera del laureando

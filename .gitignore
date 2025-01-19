@@ -11,13 +11,14 @@
 !*/
 
 # Allow specific project files and directories
-!/app/public/output/**
+!/app/public/output/**/2022-2023/** */
 !/app/src/**
 !/app/tests/**
 !/app/public/index.php
 !/app/public/styles.css
-!/app/public/tests_results.html
+!/app/public/test_result.php
 !/app/phpunit.xml
+!/app/public/junit.xml
 !/app/composer.json
 
 

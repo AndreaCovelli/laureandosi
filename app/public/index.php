@@ -19,7 +19,7 @@ $form_values = [
     'date' => ''
 ];
 
-// Controlla se il form è stato inviato
+// Controlla se il form è stato creato o inviato
 if (isset($_POST['create']) || isset($_POST['send'])) {
     $form_values = [
         'matricole' => $_POST['matricole'],
@@ -28,11 +28,11 @@ if (isset($_POST['create']) || isset($_POST['send'])) {
     ];
 
     $matricole_string = $_POST['matricole'];
-    $matricole_array = array_map('trim', explode(',', $matricole_string));
+    $matricole_array = array_filter(array_map('trim', explode(',', $matricole_string)));
     $cdl = $_POST['cdl'];
     $data_laurea = $_POST['date'];
     // Controlla che i campi siano stati compilati
-    if (!empty($matricole_array) && $cdl != "Seleziona un CdL" && !empty($data_laurea)) {
+    if (!empty($matricole_array) && !empty($cdl) && !empty($data_laurea)) {
         $pdf = new FPDF();
         $prospetto = new ProspettoPDFCommissione($pdf, $matricole_array, $cdl, $data_laurea);
         
@@ -40,7 +40,7 @@ if (isset($_POST['create']) || isset($_POST['send'])) {
             try {
                 $prospetto->generaProspetto();
                 $success = true;
-                $safe_cdl = str_replace(' ', '_', $cdl);
+                $safe_cdl = str_replace('. ', '_', $cdl);
                 $safe_date = str_replace('-', '_', $data_laurea);
                 $_SESSION['prospetti_generati'] = $success;
                 $anno_accademico = $prospetto->calcolaAnnoAccademico();
@@ -73,10 +73,16 @@ if (isset($_POST['create']) || isset($_POST['send'])) {
             <label for="cdl">CdL:</label>
             <select id="cdl" name="cdl">
                 <option value="">Seleziona un CdL</option>
-                <option value="T. Ing. Informatica">Triennale Ingegneria Informatica</option>
-                <option value="M. Ing. Elettronica">Magistrale Ingegneria Elettronica</option>
-                <option value="M. Ing. Telecomunicazioni">Magistrale Ingegneria delle Telecomunicazioni</option>
-                <option value="M. Cybersecurity">Magistrale Cybersecurity</option>
+                <?php 
+                $gestioneParametri = GestioneParametri::getInstance();
+                foreach($gestioneParametri->getCorsiSupportati() as $corso): 
+                    // Mantiene il valore selezionato dopo l'invio del form
+                    $selected = ($corso === $form_values['cdl']) ? 'selected' : '';
+                ?>
+                    <option value="<?php echo htmlspecialchars($corso); ?>" <?php echo $selected; ?>>
+                        <?php echo htmlspecialchars($corso); ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
             <label for="date">Data Laurea:</label>
             <input type="date" id="date" name="date">
@@ -156,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
     in site.conf.hbs di nginx del local site.
-    Prima di:
+    Nella posizione prima di:
 
      #
      # PHP-FPM

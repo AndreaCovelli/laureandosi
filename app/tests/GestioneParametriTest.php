@@ -11,7 +11,7 @@ class GestioneParametriTest extends TestCase
     private GestioneParametri $gestioneParametri;
     
     /**
-     * Inizializza i dati di test (viene eseguita prima di ogni test)
+     * Inizializza i dati di test (viene eseguita prima di ogni test).
      */
     protected function setUp(): void
     {
@@ -83,5 +83,24 @@ class GestioneParametriTest extends TestCase
         $filtriGenerali = $filtri['T. Ing. Informatica']['*'];
         $this->assertArrayHasKey('esami-non-avg', $filtriGenerali);
         $this->assertArrayHasKey('esami-non-cdl', $filtriGenerali);
+    }
+
+    /**
+     * Testa il metodo isCorsoSupportato.
+     */
+    public function testCorsoSupportato() {
+        $gestore = GestioneParametri::getInstance();
+        $this->assertTrue($gestore->isCorsoSupportato("T. Ing. Informatica"));
+        $this->assertFalse($gestore->isCorsoSupportato("M. Cybersecurity"));
+    }
+
+    /**
+     * Testa il metodo getCorsiSupportati.
+     */
+    public function testGetCorsiSupportati() {
+        $gestore = GestioneParametri::getInstance();
+        $corsi = $gestore->getCorsiSupportati();
+        $this->assertContains("T. Ing. Informatica", $corsi);
+        $this->assertNotContains("M. Cybersecurity", $corsi);
     }
 }

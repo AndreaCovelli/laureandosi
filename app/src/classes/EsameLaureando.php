@@ -35,10 +35,11 @@ class EsameLaureando{
         $esamiInformatici = $gestioneParametri->RestituisciParametriEsamiInformatici()['T. Ing. Informatica'];
         
         if ($this->nome !== "TEST DI VALUTAZIONE DI INGEGNERIA" && $this->nome !== 'null') {
-            if ($this->voto === "30 e lode" || $this->voto === "30 e lode " || $this->voto === "30  e lode") {
-                $this->voto = "33"; // La lode a ingegneria vale 33
-            }
             $this->voto = trim($this->voto);
+            
+            if (preg_match('/30\s+e\s+lode/i', $this->voto)) {
+                $this->voto = "33"; // la lode a ingegneria vale 33
+            }
         }
         
         // Controlla che l'esame sia nella lista degli esami informatici

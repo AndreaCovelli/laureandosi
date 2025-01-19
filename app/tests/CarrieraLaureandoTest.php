@@ -42,6 +42,16 @@ class CarrieraLaureandoTest extends TestCase
     }
 
     /**
+     * Testa l'eccezione per un corso di laurea non supportato.
+     */
+    public function testCorsoNonSupportato() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Corso di laurea non supportato: M. Cybersecurity");
+        
+        new CarrieraLaureando(123456, "M. Cybersecurity", "2023-10-01");
+    }
+
+    /**
      * Testa il calcolo della media ponderata.
      */
     public function testMediaPonderata()
