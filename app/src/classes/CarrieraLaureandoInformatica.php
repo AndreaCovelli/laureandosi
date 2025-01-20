@@ -13,13 +13,13 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
      */
     public function __construct(int $matricola, string $CdL, string $dataLaurea) {
         parent::__construct($matricola, $CdL, $dataLaurea);
-        $this->mediaEsamiInformatica = $this->RestituisciMediaEsamiInformatici();
-        $this->bonus = $this->CalcolaBonus(); // Verifica se il laureando ha diritto al bonus
+        $this->mediaEsamiInformatica = $this->calcolaMediaEsamiInformatici();
+        $this->bonus = $this->calcolaBonus(); // Verifica se il laureando ha diritto al bonus
         
         // Se il laureando ha diritto al bonus, rimuove l'esame con voto più basso
         if($this->bonus){
             $this->escludiEsamePiuBassoDallaMedia(); // Rimuove l'esame con voto più basso
-            $this->RestituisciMediaPonderata(); // Aggiorna la media ponderata
+            $this->calcolaMediaPonderata(); // Aggiorna la media ponderata
         }
     }
 
@@ -36,7 +36,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
      * @return float La media ponderata degli esami informatici, non arrotondata
      */
     
-     public function RestituisciMediaEsamiInformatici(): float {
+     public function calcolaMediaEsamiInformatici(): float {
         $esami = $this->esame;
         $sommaVoti = 0;
         $sommaCFU = 0;
@@ -70,7 +70,7 @@ class CarrieraLaureandoInformatica extends CarrieraLaureando
      * 
      * @return bool true se il laureando è idoneo per il bonus, false altrimenti
      */
-    public function CalcolaBonus(): bool {
+    public function calcolaBonus(): bool {
         $fine_bonus = date('Y-m-d', strtotime("+4 years", strtotime($this->dataImmatricolazione . "-05-31")));
     
         // Confronta la data di laurea con la data di fine bonus

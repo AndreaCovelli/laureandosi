@@ -85,7 +85,7 @@ class ProspettoPDFCommissione extends Prospetto{
         // Genera prospetto commissione
         foreach($this->lista_matricole as $laureando){
             $prospetto = new ProspettoPDFLaureandoSimulazione($this->pdf, $laureando, $this->cdl, $this->data_laurea);
-            $prospetto->GeneraProspettoSimulazione();
+            $prospetto->generaProspettoSimulazione();
         }
         $this->salvaProspetto($output_dir . '/prospetto_commissione');
 

@@ -24,11 +24,11 @@ class CarrieraLaureandoInformaticaTest extends TestCase
     }
 
     /**
-     * Testa il metodo RestituisciMediaEsamiInformatici.
+     * Testa il metodo calcolaMediaEsamiInformatici.
      */
-    public function testRestituisciMediaEsamiInformatici()
+    public function testcalcolaMediaEsamiInformatici()
     {
-        $media = $this->carriera->RestituisciMediaEsamiInformatici();
+        $media = $this->carriera->calcolaMediaEsamiInformatici();
         
         // Calcolata manualmente dal file JSON
         $expectedMedia = 23.67;
@@ -37,9 +37,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
     }
 
     /**
-     * Testa il metodo testCalcolaBonusInCorso.
+     * Testa il metodo testcalcolaBonusInCorso.
      */
-    public function testCalcolaBonusInCorso()
+    public function testcalcolaBonusInCorso()
     {
         // Laureando immatricolato nel 2016, si laurea nel 2020 entro il 31 maggio (in corso)
         $carrieraInCorso = new CarrieraLaureandoInformatica(123456, "T. Ing. Informatica", "2020-05-22");
@@ -47,9 +47,9 @@ class CarrieraLaureandoInformaticaTest extends TestCase
     }
 
     /**
-     * Testa il metodo testCalcolaBonusFuoriCorso.
+     * Testa il metodo testcalcolaBonusFuoriCorso.
      */
-    public function testCalcolaBonusFuoriCorso()
+    public function testcalcolaBonusFuoriCorso()
     {
         // Laureando immatricolato nel 2016, si laurea nel 2023 (fuori corso)
         $carrieraFuoriCorso = new CarrieraLaureandoInformatica(123456, "T. Ing. Informatica", "2023-10-01");
@@ -57,7 +57,7 @@ class CarrieraLaureandoInformaticaTest extends TestCase
     }
 
     /**
-     * Testa il metodo testCalcolaBonusInCorso.
+     * Testa il metodo testcalcolaBonusInCorso.
      */
     public function testRimozioneEsamePiuBasso()
     {
@@ -105,6 +105,6 @@ class CarrieraLaureandoInformaticaTest extends TestCase
         $mediaOriginale = $carriera->getMediaPonderata();
         
         // Verifica che la media sia aumentata
-        $this->assertGreaterThan($mediaOriginale, $carriera->RestituisciMediaPonderata());
+        $this->assertGreaterThan($mediaOriginale, $carriera->calcolaMediaPonderata());
     }
 }

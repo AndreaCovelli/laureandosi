@@ -29,11 +29,11 @@ class GestioneParametriTest extends TestCase
     }
 
     /**
-     * Testa il metodo RestituisciParametriCdl.
+     * Testa il metodo getParametriCdl.
      */
-    public function testRestituisciParametriCdl()
+    public function testgetParametriCdl()
     {
-        $parametri = $this->gestioneParametri->RestituisciParametriCdl();
+        $parametri = $this->gestioneParametri->getParametriCdl();
         
         // Verifica che sia un array
         $this->assertIsArray($parametri);
@@ -50,11 +50,11 @@ class GestioneParametriTest extends TestCase
     }
 
     /**
-     * Testa il metodo RestituisciParametriEsamiInformatici.
+     * Testa il metodo getParametriEsamiInformatici.
      */
-    public function testRestituisciParametriEsamiInformatici()
+    public function testgetParametriEsamiInformatici()
     {
-        $esamiInf = $this->gestioneParametri->RestituisciParametriEsamiInformatici();
+        $esamiInf = $this->gestioneParametri->getParametriEsamiInformatici();
         
         // Verifica che sia un array
         $this->assertIsArray($esamiInf);
@@ -66,11 +66,11 @@ class GestioneParametriTest extends TestCase
     }
 
     /**
-     * Testa il metodo RestituisciFiltroEsami.
+     * Testa il metodo getFiltroEsami.
      */
-    public function testRestituisciFiltroEsami()
+    public function testgetFiltroEsami()
     {
-        $filtri = $this->gestioneParametri->RestituisciFiltroEsami();
+        $filtri = $this->gestioneParametri->getFiltroEsami();
         
         // Verifica che sia un array
         $this->assertIsArray($filtri);

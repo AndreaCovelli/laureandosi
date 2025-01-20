@@ -19,7 +19,7 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
      * Genera il prospetto con la simulazione del voto di laurea
      * @return void
      */
-    public function GeneraProspettoSimulazione(): void {
+    public function generaProspettoSimulazione(): void {
         parent::generaProspetto(); // Chiamo il metodo della classe padre
         
         $this->aggiungiSimulazione(); // Aggiungo la simulazione
@@ -36,9 +36,9 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
         $formula = $this->carriera_laureando->getFormulaVotoLaurea();
         
         // Parametro per il voto tesi T
-        $parameter_t = $gestoreParametri->RestituisciParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters']['par-T'];
+        $parameter_t = $gestoreParametri->getParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters']['par-T'];
         // Parametro per il voto commissione C
-        $parameter_c = $gestoreParametri->RestituisciParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters']['par-C'];
+        $parameter_c = $gestoreParametri->getParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters']['par-C'];
 
         list($t_min,$t_max,$t_step) = array_values($parameter_t);
         list($c_min,$c_max,$c_step) = array_values($parameter_c);
@@ -56,9 +56,9 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
 
         // Aggiungi simulazione per T o C
         if($t_min !== 0){
-            $this->GestisciVotoSimulazione($formula, $t_min, $t_max, $t_step);
+            $this->gestisciVotoSimulazione($formula, $t_min, $t_max, $t_step);
         } else if ($c_min !== 0){
-            $this->GestisciVotoSimulazione($formula, $c_min, $c_max, $c_step);
+            $this->gestisciVotoSimulazione($formula, $c_min, $c_max, $c_step);
         }
     }
 
@@ -73,7 +73,7 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
      * @param int $step
      * @return void
      */
-    private function GestisciVotoSimulazione($formula, $min, $max, $step): void {
+    private function gestisciVotoSimulazione($formula, $min, $max, $step): void {
         $parametro = '';
         $righe = null;
         $colonne = null;
@@ -81,7 +81,7 @@ class ProspettoPDFLaureandoSimulazione extends ProspettoPDFLaureando{
 
         // Determina il parametro da usare in base al valore minimo del range
         $gestoreParametri = GestioneParametri::getInstance();
-        $parameters = $gestoreParametri->RestituisciParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters'];
+        $parameters = $gestoreParametri->getParametriCdl()['degree_programs'][$this->carriera_laureando->getCdL()]['parameters'];
         $parameter_t = $parameters['par-T'];
         
         // Se min corrisponde al t_min allora stiamo calcolando per T, altrimenti per C

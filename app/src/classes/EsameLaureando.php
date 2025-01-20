@@ -32,7 +32,7 @@ class EsameLaureando{
         $gestioneParametri = GestioneParametri::getInstance();
 
         // Recupero la lista degli esami informatici (per la T. Ing. Informatica)
-        $esamiInformatici = $gestioneParametri->RestituisciParametriEsamiInformatici()['T. Ing. Informatica'];
+        $esamiInformatici = $gestioneParametri->getParametriEsamiInformatici()['T. Ing. Informatica'];
         
         if ($this->nome !== "TEST DI VALUTAZIONE DI INGEGNERIA" && $this->nome !== 'null') {
             $this->voto = trim($this->voto);

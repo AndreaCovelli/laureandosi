@@ -122,7 +122,7 @@ class ProspettoPDFLaureando extends Prospetto{
     private function statistiche(): void {
 
         $gestioneParametri = GestioneParametri::getInstance();
-        $parametri = $gestioneParametri->RestituisciParametriCdl();
+        $parametri = $gestioneParametri->getParametriCdl();
 
         // Verifica se lo studente è di Ingegneria Informatica
         $is_informatico = is_a($this->carriera_laureando, CarrieraLaureandoInformatica::class);

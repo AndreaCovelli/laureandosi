@@ -38,7 +38,7 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
     /**
      * Effettua la generazione di un ProspettoPDFLaureandoSimulazione
      */
-    public function testGeneraProspettoSimulazione()
+    public function testgeneraProspettoSimulazione()
     {
         $this->pdf->expects($this->once())
                   ->method('AddPage');
@@ -50,7 +50,7 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
                   ->method('SetFontSize');
 
         $prospetto = new ProspettoPDFLaureandoSimulazione($this->pdf, $this->matricola, $this->cdl, $this->dataLaurea);
-        $prospetto->GeneraProspettoSimulazione();
+        $prospetto->generaProspettoSimulazione();
     }
 
     /**
@@ -65,7 +65,7 @@ class ProspettoPDFLaureandoSimulazioneTest extends TestCase
         $filename = $outputDir . DIRECTORY_SEPARATOR . 'test_simulazione';
         
         $prospetto = new ProspettoPDFLaureandoSimulazione($pdf_reale, $this->matricola, $this->cdl, $this->dataLaurea);
-        $prospetto->GeneraProspettoSimulazione();
+        $prospetto->generaProspettoSimulazione();
         $prospetto->salvaProspetto($filename);
         
         $this->assertFileExists($filename . '.pdf');

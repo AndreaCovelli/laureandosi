@@ -18,7 +18,6 @@
 !/app/public/styles.css
 !/app/public/test_result.php
 !/app/phpunit.xml
-!/app/public/junit.xml
 !/app/composer.json
 
 

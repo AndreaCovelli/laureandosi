@@ -30,12 +30,12 @@ class GestioneCarrieraLaureandoTest extends TestCase
     }
 
     /**
-     * Testa il metodo RestituisciAnagraficaLaureando.
+     * Testa il metodo getAnagraficaLaureando.
      */
-    public function testRestituisciAnagraficaLaureando()
+    public function testgetAnagraficaLaureando()
     {
         // Esegue il metodo
-        $carriera = $this->gestioneCarriera->RestituisciAnagraficaLaureando(123456);
+        $carriera = $this->gestioneCarriera->getAnagraficaLaureando(123456);
 
         // Verifica che il risultato sia un array
         $this->assertIsArray($carriera);
@@ -61,12 +61,12 @@ class GestioneCarrieraLaureandoTest extends TestCase
     }
 
     /**
-     * Testa il metodo RestituisciEsamiLaureando.
+     * Testa il metodo getEsamiLaureando.
      */
-    public function testRestituisciEsamiLaureando()
+    public function testgetEsamiLaureando()
     {
         // Esegue il metodo
-        $esami = $this->gestioneCarriera->RestituisciEsamiLaureando(123456);
+        $esami = $this->gestioneCarriera->getEsamiLaureando(123456);
 
         // Verifica che il risultato sia un array
         $this->assertIsArray($esami);

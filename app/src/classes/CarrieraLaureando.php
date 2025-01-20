@@ -31,12 +31,12 @@ class CarrieraLaureando
             throw new InvalidArgumentException("Corso di laurea non supportato: " . $cdL);
         }
 
-        $this->formulaVotoLaurea = $gestioneParametri->RestituisciParametriCdl()["degree_programs"][$cdL]["formula"];
+        $this->formulaVotoLaurea = $gestioneParametri->getParametriCdl()["degree_programs"][$cdL]["formula"];
 
         // Recupero i dati da GestioneCarrieraLaureando per l'anagrafica e la carriera del laureando
         $gestioneCarriera = GestioneCarrieraLaureando::getInstance();
-        $anagrafica = $gestioneCarriera->RestituisciAnagraficaLaureando($matricola);
-        $carriera = $gestioneCarriera->RestituisciEsamiLaureando($matricola);
+        $anagrafica = $gestioneCarriera->getAnagraficaLaureando($matricola);
+        $carriera = $gestioneCarriera->getEsamiLaureando($matricola);
         
         $this->matricola = $matricola;
         $this->dataLaurea = $dataLaurea;
@@ -49,7 +49,7 @@ class CarrieraLaureando
 
         $this->esame = $this->elaboraEsami($carriera);
     
-        $this->mediaPonderata = $this->RestituisciMediaPonderata();
+        $this->mediaPonderata = $this->calcolaMediaPonderata();
         $this->calcolaCFU();
     }
 
@@ -63,7 +63,7 @@ class CarrieraLaureando
 
         // Recupero i filtri degli esami
         $gestioneParametri = GestioneParametri::getInstance();
-        $filtroEsami = $gestioneParametri->RestituisciFiltroEsami();
+        $filtroEsami = $gestioneParametri->getFiltroEsami();
         
         // Ottieni i filtri per il corso di laurea del laureando
         $filtriCdL = $filtroEsami[$this->cdL]['*'];
@@ -109,7 +109,7 @@ class CarrieraLaureando
      * Calcola e restituisce la media ponderata per CFU
      * @return float
      */
-    public function RestituisciMediaPonderata(): float {
+    public function calcolaMediaPonderata(): float {
         $esami = $this->esame;
         $sommaVoti = 0;
         $sommaCFU = 0;

@@ -29,7 +29,7 @@ class GestioneParametri {
      * Restituisce i parametri per il calcolo della media degli esami informatici
      * @return array
      */
-    public function RestituisciParametriCdl(): array {
+    public function getParametriCdl(): array {
         // $string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/parametri_voto_laurea.json");
         $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."parametri_voto_laurea.json");
         return json_decode($string, true);
@@ -39,7 +39,7 @@ class GestioneParametri {
      * Restituisce i parametri per il calcolo della media degli esami informatici
      * @return array
      */
-    public function RestituisciParametriEsamiInformatici(): array {
+    public function getParametriEsamiInformatici(): array {
         // $string = file_get_contents(realpath(dirname(__FILE__))."esami_informatici.json");
         $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."esami_informatici.json");
         return json_decode($string, true);
@@ -49,7 +49,7 @@ class GestioneParametri {
      * Restituisce il filtro degli esami
      * @return array
      */
-    public function RestituisciFiltroEsami(): array {
+    public function getFiltroEsami(): array {
         // $string = file_get_contents(realpath(dirname(__FILE__))."/../config_files/filtro_esami.json");
         $string = file_get_contents(self::$path . DIRECTORY_SEPARATOR ."filtro_esami.json");
         return json_decode($string, true);
@@ -61,7 +61,7 @@ class GestioneParametri {
      * @return bool
      */
     public function isCorsoSupportato(string $corso): bool {
-        $parametri = $this->RestituisciParametriCdl();
+        $parametri = $this->getParametriCdl();
         return isset($parametri['degree_programs'][$corso]);
     }
 
@@ -70,7 +70,7 @@ class GestioneParametri {
      * @return array
      */
     public function getCorsiSupportati(): array {
-        $parametri = $this->RestituisciParametriCdl();
+        $parametri = $this->getParametriCdl();
         return array_keys($parametri['degree_programs']);
     }
 }
